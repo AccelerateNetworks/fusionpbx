@@ -41,7 +41,7 @@ require_once "resources/require.php";
 require_once "../sms_hook_common.php";
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   // TODO: Authenticate that it's really teli
-  route_and_send_sms($_POST['source'], $_POST['destination'], $_POST['message']);
+  route_and_send_sms(intval($_POST['source']), intval($_POST['destination']), $_POST['message']);
 } else {
   die("no");
 }
