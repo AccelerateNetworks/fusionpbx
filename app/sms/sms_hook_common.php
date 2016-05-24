@@ -47,10 +47,10 @@ function route_and_send_sms($from, $to, $body) {
 				$sql .= "v_domains ";
 				$sql .= "where v_destinations.dialplan_uuid = v_dialplan_details.dialplan_uuid ";
 				$sql .= "and v_destinations.domain_uuid = v_domains.domain_uuid";
-				$sql .= " and destination_number like '" . $to . "' and dialplan_detail_type = 'transfer' ";
+				$sql .= " and destination_number like :to and dialplan_detail_type = 'transfer' ";
 				$sql .= "limit 1";
 				$prep_statement = $db->prepare(check_sql($sql));
-				$prep_statement->execute();
+				$prep_statement->execute(array(':to' => $to));
 				$result = $prep_statement->fetchAll(PDO::FETCH_NAMED);
 				if(count($result) == 0) {
 					die("Invalid destination");
@@ -68,10 +68,10 @@ function route_and_send_sms($from, $to, $body) {
 				$sql = "select destination_number ";
 				$sql .= "from v_ring_groups, v_ring_group_destinations ";
 				$sql .= "where v_ring_groups.ring_group_uuid = v_ring_group_destinations.ring_group_uuid ";
-				$sql .= "and ring_group_extension = '" . $match[0] . "' ";
-				$sql .= "and v_ring_groups.domain_uuid = '" . $domain_uuid . "'";
+				$sql .= "and ring_group_extension = :extension ";
+				$sql .= "and v_ring_groups.domain_uuid = :domain_uuid";
 				$prep_statement = $db->prepare(check_sql($sql));
-				$prep_statement->execute();
+				$prep_statement->execute(array(':extension' => $match[0], ':domain_uuid' => $domain_uuid));
 				$result = $prep_statement->fetchAll(PDO::FETCH_NAMED);
 				if (count($result)) {
 					foreach ($result as &$row) {
@@ -84,6 +84,7 @@ function route_and_send_sms($from, $to, $body) {
 						$result2 = trim(event_socket_request($fp, $switch_cmd));
 					}
 				} else {
+					// Got injection vulnerability? $body *needs* to be checked for single quotes ('), and the other variables should be sanatized as well
 					$switch_cmd = "api luarun app.lua sms inbound " . $match[0] . "@" . $domain_name . " " . $from . " '" . $body . "'";
 					if ($debug) {
 						error_log(print_r($switch_cmd,true));
