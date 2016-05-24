@@ -47,17 +47,18 @@ function route_and_send_sms($from, $to, $body) {
 				$sql .= "v_domains ";
 				$sql .= "where v_destinations.dialplan_uuid = v_dialplan_details.dialplan_uuid ";
 				$sql .= "and v_destinations.domain_uuid = v_domains.domain_uuid";
-				$sql .= " and destination_number like '" . $to . "' and dialplan_detail_type = 'transfer'";
+				$sql .= " and destination_number like '" . $to . "' and dialplan_detail_type = 'transfer' ";
+				$sql .= "limit 1";
 				$prep_statement = $db->prepare(check_sql($sql));
 				$prep_statement->execute();
 				$result = $prep_statement->fetchAll(PDO::FETCH_NAMED);
-				foreach ($result as &$row) {
-					$domain_name = $row["domain_name"];
-					preg_match('/(\d{2,7})/',$row["dialplan_detail_data"],$match);
-					$domain_uuid = $row["domain_uuid"];
-					break; //limit to 1 row
+				if(count($result) == 0) {
+					die("Invalid destination");
 				}
-				unset ($prep_statement);
+				$domain_name = $result[0]["domain_name"];
+				preg_match('/(\d{2,7})/', $result[0]["dialplan_detail_data"], $match);
+				$domain_uuid = $result[0]["domain_uuid"];
+				unset($prep_statement);
 
 				if ($debug) {
 					error_log("MATCH: " . print_r($match,true));
