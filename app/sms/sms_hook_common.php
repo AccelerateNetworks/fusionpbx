@@ -97,6 +97,5 @@ function route_and_send_sms($from, $to, $body) {
 		}
 
 }
-die();
 
 ?>
