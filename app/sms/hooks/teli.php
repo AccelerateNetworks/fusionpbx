@@ -31,7 +31,7 @@
   Finn Herzfeld <finn@finn.io>
 
 */
-include "root.php";
+include "../root.php";
 
 //luarun /var/www/fusionpbx/app/sms/sms.lua TO FROM 'BODY'
 
