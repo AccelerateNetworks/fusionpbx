@@ -30,33 +30,13 @@
 	James Rose <james.o.rose@gmail.com>
 
 */
-include "root.php";
-
-//luarun /var/www/fusionpbx/app/sms/sms.lua TO FROM 'BODY'
-
-$debug = false;
-
-require_once "resources/require.php";
-
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-	$data = json_decode(file_get_contents("php://input"));
-	
-	if ($debug) {
-		error_log('DATA: ' .  print_r($data, true));
-	}
-	//create the even socket connection and send the event socket command
+function route_and_send_sms($from, $to, $body) {
+		//create the even socket connection and send the event socket command
 		$fp = event_socket_create($_SESSION['event_socket_ip_address'], $_SESSION['event_socket_port'], $_SESSION['event_socket_password']);
 		if (!$fp) {
 			//error message
 			echo "<div align='center'><strong>Connection to Event Socket failed.</strong></div>";
-		}
-		else {
-
-				$to = preg_replace('/(^[1])/','', $data->to);
-				if ($debug) {
-					error_log("TO: " . print_r($to,true));
-				}
-				
+		}	else {
 				$sql = "select domain_name, ";
 				$sql .= "dialplan_detail_data, ";
 				$sql .= "v_domains.domain_uuid as domain_uuid ";
@@ -94,14 +74,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 					foreach ($result as &$row) {
 						$switch_cmd = "api luarun app.lua sms inbound ";
 						$switch_cmd .= $row['destination_number'] . "@" . $domain_name;
-						$switch_cmd .= " " . $data->from . " '" . $data->body . "'";
+						$switch_cmd .= " " . $from . " '" . $body . "'";
 						if ($debug) {
 							error_log(print_r($switch_cmd,true));
 						}
 						$result2 = trim(event_socket_request($fp, $switch_cmd));
 					}
 				} else {
-					$switch_cmd = "api luarun app.lua sms inbound " . $match[0] . "@" . $domain_name . " " . $data->from . " '" . $data->body . "'";
+					$switch_cmd = "api luarun app.lua sms inbound " . $match[0] . "@" . $domain_name . " " . $from . " '" . $body . "'";
 					if ($debug) {
 						error_log(print_r($switch_cmd,true));
 					}
@@ -110,9 +90,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 				if ($debug) {
 					error_log("RESULT: " . print_r($result2,true));
 				}
-				
+
 				unset ($prep_statement);
-				
+
 		}
 
 }
