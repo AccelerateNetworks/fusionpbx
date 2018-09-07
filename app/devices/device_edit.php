@@ -951,7 +951,7 @@
 					echo "			</td>\n";
 					unset($placeholder_label);
 				}
-				
+
 				if (permission_exists('device_outbound_proxy_secondary')) {
 					echo "			<td align='left'>\n";
 					echo "				<input class='formfld' style='width: 65px;' type='text' name='device_lines[".$x."][outbound_proxy_secondary]' placeholder=\"".$text['label-secondary']."\" maxlength='255' value=\"".escape($row['outbound_proxy_secondary'])."\"/>\n";
@@ -1291,6 +1291,43 @@
 		echo "		</td>";
 		echo "	</tr>";
 	}
+//multi-handset device settings
+if (permission_exists('device_username_password')) {
+	echo "<tr>\n";
+	echo "<td class='vncell' valign='top' align='left' nowrap='nowrap'>\n";
+	echo "	Handsets\n";
+	echo "</td>\n";
+	echo "<td class='vtable' align='left'>\n";
+	echo "	<table border='0' cellpadding='0' cellspacing='3'>\n";
+	echo "    <select class='formfld' name='handsets' id='handsets'>\n";
+	echo "    <option value='handset1'>Handset 1</option>\n";
+	echo "    <option value='handset2'>Handset 2</option>\n";
+	echo "    <option value='handset3'>Handset 3</option>\n";
+	echo "    <option value='handset4'>Handset 4</option>\n";
+	echo "    <option value='handset5'>Handset 5</option>\n";
+	echo "    </select>\n";
+	echo "    <select class='formfld' name='handset_slots' id='handset_slots'>\n";
+	echo "    <option value='slot1'>Slot 1</option>\n";
+	echo "    <option value='slot2'>Slot 2</option>\n";
+	echo "    <option value='slot3'>Slot 3</option>\n";
+	echo "    <option value='slot4'>Slot 4</option>\n";
+	echo "    <option value='slot5'>Slot 5</option>\n";
+	echo "    </select>\n";
+	echo "    <select class='formfld' name='handset_lines' id='handset_lines'>\n";
+	echo "    <option value='sipaccount1'>SIP Account 1</option>\n";
+	echo "    <option value='sipaccount2'>SIP Account 2</option>\n";
+	echo "    <option value='sipaccount3'>SIP Account 3</option>\n";
+	echo "    <option value='sipaccount4'>SIP Account 4</option>\n";
+	echo "    <option value='sipaccount5'>SIP Account 5</option>\n";
+	echo "    </select>\n";
+	echo "  </table>\n";
+	echo "<br />\n";
+	echo $text['description-device']."\n";
+	echo "</td>\n";
+	echo "</tr>\n";
+}
+
+
 
 //device settings
 	if (permission_exists('device_setting_edit')) {
