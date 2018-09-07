@@ -656,7 +656,7 @@ function fax_split_dtmf(&$fax_number, &$fax_dtmf){
 		else {
 			if (!$included) {
 				//nothing to send, redirect the browser
-				messages::add($text['message-invalid-fax'], 'negative');
+				message::add($text['message-invalid-fax'], 'negative');
 				header("Location: fax_send.php?id=".$fax_uuid);
 				exit;
 			}
@@ -806,7 +806,7 @@ function fax_split_dtmf(&$fax_number, &$fax_dtmf){
 
 		if (!$included) {
 			//redirect the browser
-			messages::add($response, 'default');
+			message::add($response, 'default');
 			if (permission_exists('fax_active_view')) {
 				header("Location: fax_active.php?id=".$fax_uuid);
 			}
@@ -985,7 +985,7 @@ if (!$included) {
 			echo "	<select class='formfld' style='display: none;' id='fax_recipient_select' onchange='contact_load(this);'>\n";
 			echo "		<option value=''></option>\n";
 			foreach ($contact_labels as $index => $contact_label) {
-				echo "	<option value=\"".$contact_values[$index]."\">".$contact_label."</option>\n";
+				echo "	<option value=\"".escape($contact_values[$index])."\">".escape($contact_label)."</option>\n";
 			}
 			echo "	</select>\n";
 		}
