@@ -1292,42 +1292,119 @@
 		echo "	</tr>";
 	}
 //multi-handset device settings
-if (permission_exists('device_username_password')) {
-	echo "<tr>\n";
-	echo "<td class='vncell' valign='top' align='left' nowrap='nowrap'>\n";
-	echo "	Handsets\n";
-	echo "</td>\n";
-	echo "<td class='vtable' align='left'>\n";
-	echo "	<table border='0' cellpadding='0' cellspacing='3'>\n";
-	echo "    <select class='formfld' name='handsets' id='handsets'>\n";
-	echo "    <option value='handset1'>Handset 1</option>\n";
-	echo "    <option value='handset2'>Handset 2</option>\n";
-	echo "    <option value='handset3'>Handset 3</option>\n";
-	echo "    <option value='handset4'>Handset 4</option>\n";
-	echo "    <option value='handset5'>Handset 5</option>\n";
-	echo "    </select>\n";
-	echo "    <select class='formfld' name='handset_slots' id='handset_slots'>\n";
-	echo "    <option value='slot1'>Slot 1</option>\n";
-	echo "    <option value='slot2'>Slot 2</option>\n";
-	echo "    <option value='slot3'>Slot 3</option>\n";
-	echo "    <option value='slot4'>Slot 4</option>\n";
-	echo "    <option value='slot5'>Slot 5</option>\n";
-	echo "    </select>\n";
-	echo "    <select class='formfld' name='handset_lines' id='handset_lines'>\n";
-	echo "    <option value='sipaccount1'>SIP Account 1</option>\n";
-	echo "    <option value='sipaccount2'>SIP Account 2</option>\n";
-	echo "    <option value='sipaccount3'>SIP Account 3</option>\n";
-	echo "    <option value='sipaccount4'>SIP Account 4</option>\n";
-	echo "    <option value='sipaccount5'>SIP Account 5</option>\n";
-	echo "    </select>\n";
-	echo "  </table>\n";
-	echo "<br />\n";
-	echo $text['description-device']."\n";
-	echo "</td>\n";
-	echo "</tr>\n";
+
+if (permission_exists('device_setting_edit')) {
+	echo "	<tr>";
+	echo "		<td class='vncell' valign='top'>".$text['label-handsets']."</td>";
+	echo "		<td class='vtable' align='left'>";
+	echo "			<table border='0' cellpadding='0' cellspacing='3'>\n";
+	echo "			<tr>\n";
+	echo "				<td class='vtable'>".$text['label-handset']."</td>\n";
+	echo "				<td class='vtable'>".$text['label-handset_slot']."</td>\n";
+	echo "				<td class='vtable'>".$text['label-enabled']."</td>\n";
+	echo "				<td class='vtable'>".$text['label-handset_sip_account']."</td>\n";
+	echo "				<td>&nbsp;</td>\n";
+	echo "			</tr>\n";
+
+	$x = 0;
+	foreach($device_settings as $row) {
+		//determine whether to hide the element
+			if (strlen($device_setting_uuid) == 0 && strpos($device_setting_name, "handset") !== false) {
+				$element['hidden'] = false;
+				$element['visibility'] = "visibility:visible;";
+			}
+			else {
+				$element['hidden'] = true;
+				$element['visibility'] = "visibility:hidden;";
+			}
+		//add the primary key uuid
+			if (strlen($row['device_setting_uuid']) > 0) {
+				echo "	<input name='device_settings[".$x."][device_setting_uuid]' type='hidden' value=\"".escape($row['device_setting_uuid'])."\"/>\n";
+			}
+
+		//show alls relevant rows in the array
+			echo "<tr>\n";
+			echo "<td align='left'>\n";
+			echo "		<select class='formfld' name='device_settings[".$x."][device_setting_subcategory]' style='width: 120px;'>\n";
+			echo "  	<option value=''></option>\n";
+			$device_setting_subcategory_current = "device_settings[".$x."][device_setting_subcategory]";
+			//create handsets 1 through 5 in the menu
+			for($i = 1; $i <= 5; $i++) {
+				$current_handset = "handset".$i;
+				if ($row[$device_setting_subcategory_current] == $current_handset) {
+					echo "    <option value='".$current_handset."' selected='selected'>".$text['label-handset'] .$i."</option>\n";
+				}
+				else {
+					echo "    <option value='".$current_handset."'>".$text['label-handset'] .$i."</option>\n";
+				}
+			}
+			echo "</td>\n";
+
+			echo "<td align='left'>\n";
+			echo "	<input class='formfld' type='text' name='device_settings[".$x."][device_setting_value]' style='width: 120px;' maxlength='255' value=\"".escape($row['device_setting_value'])."\"/>\n";
+			echo "		<select class='formfld' name='device_settings[".$x."][device_setting_value]' style='width: 120px;'>\n";
+			echo "  	<option value=''></option>\n";
+			$device_setting_value_current = "device_settings[".$x."][device_setting_value]";
+			//create handsets 1 through 5 in the menu
+			for($i = 1; $i <= 5; $i++) {
+				$current_slot = "slot".$i;
+				if ($row[$device_setting_value_current] == $current_handset) {
+					echo "    <option value='".$current_slot."' selected='selected'>".$text['label-handset_slot'] .$i."</option>\n";
+				}
+				else {
+					echo "    <option value='".$current_slot."'>".$text['label-handset_slot'] .$i."</option>\n";
+				}
+			}
+			echo "</td>\n";
+
+			echo "<td align='left'>\n";
+			echo "    <select class='formfld' name='device_settings[".$x."][device_setting_enabled]' style='width: 90px;'>\n";
+			echo "    <option value=''></option>\n";
+			if ($row['device_setting_enabled'] == "true") {
+				echo "    <option value='true' selected='selected'>".$text['label-true']."</option>\n";
+			}
+			else {
+				echo "    <option value='true'>".$text['label-true']."</option>\n";
+			}
+			if ($row['device_setting_enabled'] == "false") {
+				echo "    <option value='false' selected='selected'>".$text['label-false']."</option>\n";
+			}
+			else {
+				echo "    <option value='false'>".$text['label-false']."</option>\n";
+			}
+			echo "    </select>\n";
+			echo "</td>\n";
+
+			echo "<td align='left'>\n";
+			echo "	<input class='formfld' type='text' name='device_settings[".$x."][device_setting_description]' style='width: 150px;' maxlength='255' value=\"".escape($row['device_setting_description'])."\"/>\n";
+			echo "</td>\n";
+
+			if (strlen($text['description-settings']) > 0) {
+				echo "			<br>".$text['description-settings']."\n";
+			}
+			echo "		</td>";
+
+			echo "				<td>\n";
+			if (strlen($row['device_setting_uuid']) > 0) {
+				if (permission_exists('device_edit')) {
+					echo "					<a href='device_setting_edit.php?device_uuid=".escape($row['device_uuid'])."&id=".escape($row['device_setting_uuid'])."' alt='".$text['button-edit']."'>$v_link_label_edit</a>\n";
+				}
+				if (permission_exists('device_delete')) {
+					echo "					<a href='device_setting_delete.php?device_uuid=".escape($row['device_uuid'])."&id=".escape($row['device_setting_uuid'])."' alt='".$text['button-delete']."' onclick=\"return confirm('".$text['confirm-delete']."')\">$v_link_label_delete</a>\n";
+				}
+			}
+			echo "				</td>\n";
+			echo "			</tr>\n";
+			$x++;
+		}
+		/*
+		echo "			<td align='left'>\n";
+		echo "				<input type='button' class='btn' value='".$text['button-save']."' onclick='submit_form();'>\n";
+		*/
+		echo "			</table>\n";
+		echo "			</td>\n";
+		echo "			</tr>\n";
 }
-
-
 
 //device settings
 	if (permission_exists('device_setting_edit')) {
@@ -1349,8 +1426,7 @@ if (permission_exists('device_username_password')) {
 				if (strlen($device_setting_uuid) == 0) {
 					$element['hidden'] = false;
 					$element['visibility'] = "visibility:visible;";
-				}
-				else {
+				} else {
 					$element['hidden'] = true;
 					$element['visibility'] = "visibility:hidden;";
 				}

@@ -1561,6 +1561,12 @@ $text['label-intercom']['ru-ru'] = "Внутренняя связь";
 $text['label-intercom']['sv-se'] = "Intercom";
 $text['label-intercom']['uk-ua'] = "";
 
+$text['label-handsets']['en-us'] = "Multi-line Handsets";
+$text['label-handset']['en-us'] = "Handset";
+$text['label-handset_slot']['en-us'] = "Slot";
+$text['label-handset_sip_account']['en-us'] = "SIP Account";
+
+
 $text['label-hot_desking']['en-us'] = "Hot Desking";
 $text['label-hot_desking']['ar-eg'] = "";
 $text['label-hot_desking']['de-at'] = "Hot Desking"; //copied from de-de
@@ -3143,18 +3149,18 @@ $text['label-speeddial']['uk-ua'] = "SpeedDial";
 
 $text['label-direct_pickup']['en-us'] = "Direct Pickup";
 $text['label-direct_pickup']['ar-eg'] = "";
-$text['label-direct_pickup']['de-at'] = ""; 
-$text['label-direct_pickup']['de-ch'] = ""; 
+$text['label-direct_pickup']['de-at'] = "";
+$text['label-direct_pickup']['de-ch'] = "";
 $text['label-direct_pickup']['de-de'] = "";
 $text['label-direct_pickup']['es-cl'] = "";
-$text['label-direct_pickup']['es-mx'] = ""; 
-$text['label-direct_pickup']['fr-ca'] = ""; 
+$text['label-direct_pickup']['es-mx'] = "";
+$text['label-direct_pickup']['fr-ca'] = "";
 $text['label-direct_pickup']['fr-fr'] = "";
 $text['label-direct_pickup']['he-il'] = "";
 $text['label-direct_pickup']['it-it'] = "";
 $text['label-direct_pickup']['nl-nl'] = "";
 $text['label-direct_pickup']['pl-pl'] = "";
-$text['label-direct_pickup']['pt-br'] = ""; 
+$text['label-direct_pickup']['pt-br'] = "";
 $text['label-direct_pickup']['pt-pt'] = "";
 $text['label-direct_pickup']['ro-ro'] = "";
 $text['label-direct_pickup']['ru-ru'] = "";
