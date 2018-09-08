@@ -1355,19 +1355,7 @@ if (permission_exists('device_setting_edit')) {
 			}
 			echo "</td>\n";
 
-			echo "    <select class='formfld' name='device_settings[".$x."][device_setting_enabled]' style='width: 90px;' type='hidden'>\n";
-			if ($row['device_setting_enabled'] == "true") {
-				echo "    <option value='true' selected='selected' type='hidden'>".$text['label-true']."</option>\n";
-			}
-			else {
-				echo "    <option value='true' type='hidden'>".$text['label-true']."</option>\n";
-			}
-			if ($row['device_setting_enabled'] == "false") {
-				echo "    <option value='false' selected='selected' type='hidden'>".$text['label-false']."</option>\n";
-			}
-			else {
-				echo "    <option value='false' type='hidden'>".$text['label-false']."</option>\n";
-			}
+			echo "    <input class='formfld' name='device_settings[".$x."][device_setting_enabled]' style='width: 90px;' type='hidden' value='true'>\n";
 			echo "    </select>\n";
 
 			echo "<td align='left'>\n";
