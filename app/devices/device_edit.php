@@ -1301,7 +1301,6 @@ if (permission_exists('device_setting_edit')) {
 	echo "			<tr>\n";
 	echo "				<td class='vtable'>".$text['label-handset']."</td>\n";
 	echo "				<td class='vtable'>".$text['label-handset_slot']."</td>\n";
-	echo "				<td class='vtable'>".$text['label-enabled']."</td>\n";
 	echo "				<td class='vtable'>".$text['label-handset_sip_account']."</td>\n";
 	echo "				<td>&nbsp;</td>\n";
 	echo "			</tr>\n";
@@ -1372,7 +1371,19 @@ if (permission_exists('device_setting_edit')) {
 			echo "    </select>\n";
 
 			echo "<td align='left'>\n";
-			echo "	<input class='formfld' type='text' name='device_settings[".$x."][device_setting_description]' style='width: 150px;' maxlength='255' value=\"".escape($row['device_setting_description'])."\"/>\n";
+			echo "		<select class='formfld' name='device_settings[".$x."][device_setting_value]' style='width: 120px;'>\n";
+			echo "  	<option value=''></option>\n";
+			$device_setting_value_current = "device_settings[".$x."][device_setting_value]";
+			//create handsets 1 through 5 in the menu
+			for($i = 1; $i <= 10; $i++) {
+				$current_slot = "slot".$i;
+				if ($row[$device_setting_value_current] == $current_handset) {
+					echo "    <option value='".$current_slot."' selected='selected'>".$text['label-handset_sip_account']." ".$i."</option>\n";
+				}
+				else {
+					echo "    <option value='".$current_slot."'>".$text['label-handset_sip_account']." ".$i."</option>\n";
+				}
+			}
 			echo "</td>\n";
 
 			if (strlen($text['description-settings']) > 0) {
