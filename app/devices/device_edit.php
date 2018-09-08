@@ -1332,10 +1332,10 @@ if (permission_exists('device_setting_edit')) {
 			for($i = 1; $i <= 5; $i++) {
 				$current_handset = "handset".$i;
 				if ($row[$device_setting_subcategory_current] == $current_handset) {
-					echo "    <option value='".$current_handset."' selected='selected'>".$text['label-handset'] .$i."</option>\n";
+					echo "    <option value='".$current_handset."' selected='selected'>".$text['label-handset']." ".$i."</option>\n";
 				}
 				else {
-					echo "    <option value='".$current_handset."'>".$text['label-handset'] .$i."</option>\n";
+					echo "    <option value='".$current_handset."'>".$text['label-handset']." ".$i."</option>\n";
 				}
 			}
 			echo "</td>\n";
@@ -1356,23 +1356,20 @@ if (permission_exists('device_setting_edit')) {
 			}
 			echo "</td>\n";
 
-			echo "<td align='left'>\n";
-			echo "    <select class='formfld' name='device_settings[".$x."][device_setting_enabled]' style='width: 90px;'>\n";
-			echo "    <option value=''></option>\n";
+			echo "    <select class='formfld' name='device_settings[".$x."][device_setting_enabled]' style='width: 90px;' type='hidden'>\n";
 			if ($row['device_setting_enabled'] == "true") {
-				echo "    <option value='true' selected='selected'>".$text['label-true']."</option>\n";
+				echo "    <option value='true' selected='selected' type='hidden'>".$text['label-true']."</option>\n";
 			}
 			else {
-				echo "    <option value='true'>".$text['label-true']."</option>\n";
+				echo "    <option value='true' type='hidden'>".$text['label-true']."</option>\n";
 			}
 			if ($row['device_setting_enabled'] == "false") {
-				echo "    <option value='false' selected='selected'>".$text['label-false']."</option>\n";
+				echo "    <option value='false' selected='selected' type='hidden'>".$text['label-false']."</option>\n";
 			}
 			else {
-				echo "    <option value='false'>".$text['label-false']."</option>\n";
+				echo "    <option value='false' type='hidden'>".$text['label-false']."</option>\n";
 			}
 			echo "    </select>\n";
-			echo "</td>\n";
 
 			echo "<td align='left'>\n";
 			echo "	<input class='formfld' type='text' name='device_settings[".$x."][device_setting_description]' style='width: 150px;' maxlength='255' value=\"".escape($row['device_setting_description'])."\"/>\n";
