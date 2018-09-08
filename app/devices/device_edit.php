@@ -180,6 +180,7 @@
 		//settings
 			//$device_setting_category = check_str($_POST["device_setting_category"]);
 			$device_setting_subcategory = check_str($_POST["device_setting_subcategory"]);
+			$device_setting_subcategory = check_str($_POST["device_setting_handset"] . '_' . $_POST["device_setting_slot"]);
 			//$device_setting_name = check_str($_POST["device_setting_name"]);
 			$device_setting_value = check_str($_POST["device_setting_value"]);
 			$device_setting_enabled = check_str($_POST["device_setting_enabled"]);
@@ -268,7 +269,7 @@
 					$x = 0;
 					foreach ($_POST["device_settings"] as $row) {
 						//unset the empty row
-							if (strlen($row["device_setting_subcategory"]) == 0) {
+							if (strlen($row["device_setting_subcategory"]) == 0 && strlen($row["device_setting_handset"]) == 0) {
 								unset($_POST["device_settings"][$x]);
 							}
 						//unset device_detail_uuid if the field has no value
@@ -1321,16 +1322,20 @@ if (permission_exists('device_setting_edit')) {
 				echo "	<input name='device_settings[".$x."][device_setting_uuid]' type='hidden' value=\"".escape($row['device_setting_uuid'])."\"/>\n";
 			}
 
+		//Set current Handset & Slot variables
+			$device_setting_subcategory_current = "device_settings[".$x."][device_setting_subcategory]";
+			$handset_and_slot = explode("_", $device_setting_subcategory_current);
+			$handset = $handset_and_slot[0];
+			$slot = $handset_and_slot[1];
 		//show alls relevant rows in the array
 			echo "<tr>\n";
 			echo "<td align='left'>\n";
-			echo "		<select class='formfld' name='device_settings[".$x."][device_setting_subcategory]' style='width: 120px;'>\n";
+			echo "		<select class='formfld' name='device_settings[".$x."][device_setting_handset]' style='width: 120px;'>\n";
 			echo "  	<option value=''></option>\n";
-			$device_setting_subcategory_current = "device_settings[".$x."][device_setting_subcategory]";
 			//create handsets 1 through 5 in the menu
 			for($i = 1; $i <= 5; $i++) {
 				$current_handset = "handset".$i;
-				if ($row[$device_setting_subcategory_current] == $current_handset) {
+				if ($row[$handset] == $current_handset) {
 					echo "    <option value='".$current_handset."' selected='selected'>".$text['label-handset']." ".$i."</option>\n";
 				}
 				else {
@@ -1340,13 +1345,13 @@ if (permission_exists('device_setting_edit')) {
 			echo "</td>\n";
 
 			echo "<td align='left'>\n";
-			echo "		<select class='formfld' name='device_settings[".$x."][device_setting_value]' style='width: 120px;'>\n";
+			echo "		<select class='formfld' name='device_settings[".$x."][device_setting_slot]' style='width: 120px;'>\n";
 			echo "  	<option value=''></option>\n";
-			$device_setting_value_current = "device_settings[".$x."][device_setting_value]";
+
 			//create handsets 1 through 5 in the menu
 			for($i = 1; $i <= 5; $i++) {
 				$current_slot = "slot".$i;
-				if ($row[$device_setting_value_current] == $current_handset) {
+				if ($row[$slot] == $current_handset) {
 					echo "    <option value='".$current_slot."' selected='selected'>".$text['label-handset_slot']." ".$i."</option>\n";
 				}
 				else {
