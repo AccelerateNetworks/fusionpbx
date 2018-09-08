@@ -1341,7 +1341,6 @@ if (permission_exists('device_setting_edit')) {
 			echo "</td>\n";
 
 			echo "<td align='left'>\n";
-			echo "	<input class='formfld' type='text' name='device_settings[".$x."][device_setting_value]' style='width: 120px;' maxlength='255'>\n";
 			echo "		<select class='formfld' name='device_settings[".$x."][device_setting_value]' style='width: 120px;'>\n";
 			echo "  	<option value=''></option>\n";
 			$device_setting_value_current = "device_settings[".$x."][device_setting_value]";
