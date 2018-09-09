@@ -180,7 +180,6 @@
 		//settings
 			//$device_setting_category = check_str($_POST["device_setting_category"]);
 			$device_setting_subcategory = check_str($_POST["device_setting_subcategory"]);
-			$device_setting_subcategory = check_str($_POST["device_setting_handset"] . '_' . $_POST["device_setting_slot"]);
 			//$device_setting_name = check_str($_POST["device_setting_name"]);
 			$device_setting_value = check_str($_POST["device_setting_value"]);
 			$device_setting_enabled = check_str($_POST["device_setting_enabled"]);
@@ -269,7 +268,7 @@
 					$x = 0;
 					foreach ($_POST["device_settings"] as $row) {
 						//unset the empty row
-							if (strlen($row["device_setting_subcategory"]) == 0 && strlen($row["device_setting_handset"]) == 0) {
+							if (strlen($row["device_setting_subcategory"]) == 0) {
 								unset($_POST["device_settings"][$x]);
 							}
 						//unset device_detail_uuid if the field has no value
@@ -952,7 +951,7 @@
 					echo "			</td>\n";
 					unset($placeholder_label);
 				}
-
+				
 				if (permission_exists('device_outbound_proxy_secondary')) {
 					echo "			<td align='left'>\n";
 					echo "				<input class='formfld' style='width: 65px;' type='text' name='device_lines[".$x."][outbound_proxy_secondary]' placeholder=\"".$text['label-secondary']."\" maxlength='255' value=\"".escape($row['outbound_proxy_secondary'])."\"/>\n";
@@ -1292,119 +1291,6 @@
 		echo "		</td>";
 		echo "	</tr>";
 	}
-//multi-handset device settings
-
-if (permission_exists('device_setting_edit')) {
-	echo "	<tr>";
-	echo "		<td class='vncell' valign='top'>".$text['label-handsets']."</td>";
-	echo "		<td class='vtable' align='left'>";
-	echo "			<table border='0' cellpadding='0' cellspacing='3'>\n";
-	echo "			<tr>\n";
-	echo "				<td class='vtable'>".$text['label-handset']."</td>\n";
-	echo "				<td class='vtable'>".$text['label-handset_slot']."</td>\n";
-	echo "				<td class='vtable'>".$text['label-handset_sip_account']."</td>\n";
-	echo "				<td>&nbsp;</td>\n";
-	echo "			</tr>\n";
-
-	$x = 0;
-	foreach($device_settings as $row) {
-		//determine whether to hide the element
-			if (strlen($device_setting_uuid) == 0 && strpos($device_setting_name, "handset") !== false) {
-				$element['hidden'] = false;
-				$element['visibility'] = "visibility:visible;";
-			}
-			else {
-				$element['hidden'] = true;
-				$element['visibility'] = "visibility:hidden;";
-			}
-		//add the primary key uuid
-			if (strlen($row['device_setting_uuid']) > 0) {
-				echo "	<input name='device_settings[".$x."][device_setting_uuid]' type='hidden' value=\"".escape($row['device_setting_uuid'])."\"/>\n";
-			}
-
-		//Set current Handset & Slot variables
-			$device_setting_subcategory_current = "device_settings[".$x."][device_setting_subcategory]";
-			$handset_and_slot = explode("_", $device_setting_subcategory_current);
-			$handset = $handset_and_slot[0];
-			$slot = $handset_and_slot[1];
-		//show alls relevant rows in the array
-			echo "<tr>\n";
-			echo "<td align='left'>\n";
-			echo "		<select class='formfld' name='device_settings[".$x."][device_setting_handset]' style='width: 120px;'>\n";
-			echo "  	<option value=''></option>\n";
-			//create handsets 1 through 5 in the menu
-			for($i = 1; $i <= 5; $i++) {
-				$current_handset = "handset".$i;
-				if ($row[$handset] == $current_handset) {
-					echo "    <option value='".$current_handset."' selected='selected'>".$text['label-handset']." ".$i."</option>\n";
-				}
-				else {
-					echo "    <option value='".$current_handset."'>".$text['label-handset']." ".$i."</option>\n";
-				}
-			}
-			echo "</td>\n";
-
-			echo "<td align='left'>\n";
-			echo "		<select class='formfld' name='device_settings[".$x."][device_setting_slot]' style='width: 120px;'>\n";
-			echo "  	<option value=''></option>\n";
-
-			//create handsets 1 through 5 in the menu
-			for($i = 1; $i <= 5; $i++) {
-				$current_slot = "slot".$i;
-				if ($row[$slot] == $current_handset) {
-					echo "    <option value='".$current_slot."' selected='selected'>".$text['label-handset_slot']." ".$i."</option>\n";
-				}
-				else {
-					echo "    <option value='".$current_slot."'>".$text['label-handset_slot']." ".$i."</option>\n";
-				}
-			}
-			echo "</td>\n";
-
-			echo "    <input class='formfld' name='device_settings[".$x."][device_setting_enabled]' style='width: 90px;' type='hidden' value='true'>\n";
-			echo "    </select>\n";
-
-			echo "<td align='left'>\n";
-			echo "		<select class='formfld' name='device_settings[".$x."][device_setting_value]' style='width: 120px;'>\n";
-			echo "  	<option value=''></option>\n";
-			$device_setting_value_current = "device_settings[".$x."][device_setting_value]";
-			//create handsets 1 through 5 in the menu
-			for($i = 1; $i <= 10; $i++) {
-				$current_slot = "slot".$i;
-				if ($row[$device_setting_value_current] == $current_handset) {
-					echo "    <option value='".$current_slot."' selected='selected'>".$text['label-handset_sip_account']." ".$i."</option>\n";
-				}
-				else {
-					echo "    <option value='".$current_slot."'>".$text['label-handset_sip_account']." ".$i."</option>\n";
-				}
-			}
-			echo "</td>\n";
-
-			if (strlen($text['description-settings']) > 0) {
-				echo "			<br>".$text['description-settings']."\n";
-			}
-			echo "		</td>";
-
-			echo "				<td>\n";
-			if (strlen($row['device_setting_uuid']) > 0) {
-				if (permission_exists('device_edit')) {
-					echo "					<a href='device_setting_edit.php?device_uuid=".escape($row['device_uuid'])."&id=".escape($row['device_setting_uuid'])."' alt='".$text['button-edit']."'>$v_link_label_edit</a>\n";
-				}
-				if (permission_exists('device_delete')) {
-					echo "					<a href='device_setting_delete.php?device_uuid=".escape($row['device_uuid'])."&id=".escape($row['device_setting_uuid'])."' alt='".$text['button-delete']."' onclick=\"return confirm('".$text['confirm-delete']."')\">$v_link_label_delete</a>\n";
-				}
-			}
-			echo "				</td>\n";
-			echo "			</tr>\n";
-			$x++;
-		}
-		/*
-		echo "			<td align='left'>\n";
-		echo "				<input type='button' class='btn' value='".$text['button-save']."' onclick='submit_form();'>\n";
-		*/
-		echo "			</table>\n";
-		echo "			</td>\n";
-		echo "			</tr>\n";
-}
 
 //device settings
 	if (permission_exists('device_setting_edit')) {
@@ -1426,7 +1312,8 @@ if (permission_exists('device_setting_edit')) {
 				if (strlen($device_setting_uuid) == 0) {
 					$element['hidden'] = false;
 					$element['visibility'] = "visibility:visible;";
-				} else {
+				}
+				else {
 					$element['hidden'] = true;
 					$element['visibility'] = "visibility:hidden;";
 				}
