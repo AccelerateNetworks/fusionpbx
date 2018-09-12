@@ -51,6 +51,12 @@ if (strlen($_GET["device_uuid"]) > 0) {
 	$device_uuid = check_str($_GET["device_uuid"]);
 }
 
+if (strlen($_GET["domain_uuid"]) > 0) {
+	$domain_uuid = check_str($_GET["domain_uuid"]);
+} else {
+	$domain_uuid = do_sql($db, "SELECT domain_uuid from v_devices where device_uuid = :device_uuid", array(":device_uuid" => $domain_uuid));
+}
+
 //get http post variables and set them to php variables
 	if (count($_POST)>0) {
 		$device_handset = check_str($_POST["device_handset"]);
@@ -86,6 +92,7 @@ if (count($_POST)>0 && strlen($_POST["persistformvar"]) == 0) {
 					$sql .= "(";
 					$sql .= "device_uuid, ";
 					$sql .= "device_handset_uuid, ";
+					$sql .= "domain_uuid, ";
 					$sql .= "device_handset, ";
 					$sql .= "device_handset_slot, ";
 					$sql .= "device_sip_account, ";
@@ -95,6 +102,7 @@ if (count($_POST)>0 && strlen($_POST["persistformvar"]) == 0) {
 					$sql .= "(";
 					$sql .= "'$device_uuid', ";
 					$sql .= "'".uuid()."', ";
+					$sql .= "'$domain_uuid', ";
 					$sql .= "'$device_handset', ";
 					$sql .= "'$device_handset_slot', ";
 					$sql .= "'$device_sip_account', ";

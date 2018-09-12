@@ -60,7 +60,7 @@ require_once "resources/paging.php";
 	echo "</table>\n";
 
 	//prepare to page the results
-		$sql = "select count(*) as num_rows from v_devices_handsets ";
+		$sql = "select count(*) as num_rows from v_device_handsets ";
 		$sql .= "where device_uuid = '$device_uuid' ";
 		$sql .= "and domain_uuid = '$domain_uuid' ";
 		if (strlen($order_by)> 0) { $sql .= "order by $order_by $order "; }
