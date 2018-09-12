@@ -177,6 +177,10 @@
 			$device_key_value = check_str($_POST["device_key_value"]);
 			$device_key_extension = check_str($_POST["device_key_extension"]);
 			$device_key_label = check_str($_POST["device_key_label"]);
+		//Multi-device handset settings
+			$device_handset = check_str($_POST["device_handset"]);
+			$device_handset_slot = check_str($_POST["device_handset_slot"]);
+			$device_sip_account = check_str($_POST["device_sip_account"]);
 		//settings
 			//$device_setting_category = check_str($_POST["device_setting_category"]);
 			$device_setting_subcategory = check_str($_POST["device_setting_subcategory"]);
@@ -261,6 +265,19 @@
 						//unset device_detail_uuid if the field has no value
 							if (strlen($row["device_key_uuid"]) == 0) {
 								unset($_POST["device_keys"][$x]["device_key_uuid"]);
+							}
+						//increment the row
+							$x++;
+					}
+					$x = 0;
+					foreach ($_POST["device_handsets"] as $row) {
+						//unset the empty row
+							if (strlen($row["device_handset"]) == 0) {
+								unset($_POST["device_handsets"][$x]);
+							}
+						//unset device_detail_uuid if the field has no value
+							if (strlen($row["device_handset_uuid"]) == 0) {
+								unset($_POST["device_handsets"][$x]["device_handset_uuid"]);
 							}
 						//increment the row
 							$x++;
@@ -459,6 +476,17 @@
 	$prep_statement = $db->prepare(check_sql($sql));
 	$prep_statement->execute();
 	$vendor_functions = $prep_statement->fetchAll(PDO::FETCH_NAMED);
+
+//get multi-device handset settings
+	$sql = "SELECT * FROM v_device_handsets ";
+	$sql .= "WHERE device_uuid = '".$device_uuid."' ";
+	$sql .= "ORDER by device_handset asc ";
+	$prep_statement = $db->prepare(check_sql($sql));
+	$prep_statement->execute();
+	$device_handsets = $prep_statement->fetchAll(PDO::FETCH_NAMED);
+	$device_handsets[$x]['device_handset'] = '';
+	$device_handsets[$x]['device_handset_slot'] = '';
+	$device_handsets[$x]['device_sip_account'] = '';
 
 //get device settings
 	$sql = "SELECT * FROM v_device_settings ";
@@ -951,7 +979,7 @@
 					echo "			</td>\n";
 					unset($placeholder_label);
 				}
-				
+
 				if (permission_exists('device_outbound_proxy_secondary')) {
 					echo "			<td align='left'>\n";
 					echo "				<input class='formfld' style='width: 65px;' type='text' name='device_lines[".$x."][outbound_proxy_secondary]' placeholder=\"".$text['label-secondary']."\" maxlength='255' value=\"".escape($row['outbound_proxy_secondary'])."\"/>\n";
@@ -1290,6 +1318,66 @@
 		}
 		echo "		</td>";
 		echo "	</tr>";
+	}
+
+//Multi-device handset settings
+	if (permission_exists('device_setting_edit')) {
+		echo "	<tr>";
+		echo "		<td class='vncell' valign='top'>".$text['label-handsets']."</td>";
+		echo "		<td class='vtable' align='left'>";
+		echo "			<table border='0' cellpadding='0' cellspacing='3'>\n";
+		echo "			<tr>\n";
+		echo "				<td class='vtable'>".$text['label-handset']."</td>\n";
+		echo "				<td class='vtable'>".$text['label-handset_slot']."</td>\n";
+		echo "				<td class='vtable'>".$text['label-handset_sip_account']."</td>\n";
+		echo "				<td>&nbsp;</td>\n";
+		echo "			</tr>\n";
+
+		$x = 0;
+		foreach($device_handsets as $row) {
+			//determine whether to hide the element
+				if (strlen($device_handset_uuid) == 0) {
+					$element['hidden'] = false;
+					$element['visibility'] = "visibility:visible;";
+				}
+				else {
+					$element['hidden'] = true;
+					$element['visibility'] = "visibility:hidden;";
+				}
+			//add the primary key uuid
+				if (strlen($row['device_handset_uuid']) > 0) {
+					echo "	<input name='device_handsets[".$x."][device_handset_uuid]' type='hidden' value=\"".escape($row['device_handset_uuid'])."\"/>\n";
+				}
+
+			//show alls rows in the array
+				echo "<tr>\n";
+				echo "<td align='left'>\n";
+				echo "	<input class='formfld' type='text' name='device_handsets[".$x."][device_handset]' style='width: 120px;' maxlength='255' value=\"".escape($row['device_handset'])."\"/>\n";
+				echo "</td>\n";
+
+				echo "<td align='left'>\n";
+				echo "	<input class='formfld' type='text' name='device_handsets[".$x."][device_handset_slot]' style='width: 120px;' maxlength='255' value=\"".escape($row['device_handset_slot'])."\"/>\n";
+				echo "</td>\n";
+
+				echo "<td align='left'>\n";
+				echo "	<input class='formfld' type='text' name='device_handsets[".$x."][device_sip_account]' style='width: 150px;' maxlength='255' value=\"".escape($row['device_sip_account'])."\"/>\n";
+				echo "</td>\n";
+				//Implement these two PHP pages!
+				if (strlen($row['device_handset_uuid']) > 0) {
+					if (permission_exists('device_edit')) {
+						echo "					<a href='device_handset_edit.php?device_uuid=".escape($row['device_uuid'])."&id=".escape($row['device_handset_uuid'])."' alt='".$text['button-edit']."'>$v_link_label_edit</a>\n";
+					}
+					if (permission_exists('device_delete')) {
+						echo "					<a href='device_handset_delete.php?device_uuid=".escape($row['device_uuid'])."&id=".escape($row['device_handset_uuid'])."' alt='".$text['button-delete']."' onclick=\"return confirm('".$text['confirm-delete']."')\">$v_link_label_delete</a>\n";
+					}
+				}
+				echo "				</td>\n";
+				echo "			</tr>\n";
+				$x++;
+			}
+			echo "			</table>\n";
+			echo "			</td>\n";
+			echo "			</tr>\n";
 	}
 
 //device settings
