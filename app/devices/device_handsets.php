@@ -103,11 +103,11 @@ require_once "resources/paging.php";
 	if ($result_count > 0) {
 		$previous_category = '';
 		foreach($result as $row) {
-			if ($previous_category != $row['device_setting_category']) {
+			if ($previous_category != $row['device_handset']) {
 				echo "<tr><td colspan='5' align='left'>\n";
 				echo "	<br />\n";
 				echo "	<br />\n";
-				echo "	<b>".ucfirst($row['device_setting_category'])."</b>&nbsp;</td></tr>\n";
+				echo "	<b>".ucfirst($row['device_handset'])."</b>&nbsp;</td></tr>\n";
 				echo "<tr>\n";
 				echo th_order_by('device_handset', $text['label-handset'], $order_by, $order);
 				echo th_order_by('device_handset_slot', $text['label-handset_slot'], $order_by, $order);
@@ -125,21 +125,20 @@ require_once "resources/paging.php";
 				echo "</tr>\n";
 			}
 			echo "<tr >\n";
-			echo "	<td valign='top' class='".$row_style[$c]."'>".$row['device_setting_subcategory']."&nbsp;</td>\n";
-			echo "	<td valign='top' class='".$row_style[$c]."'>".$row['device_setting_name']."&nbsp;</td>\n";
-			echo "	<td valign='top' class='".$row_style[$c]."'>".$row['device_setting_value']."&nbsp;</td>\n";
-			echo "	<td valign='top' class='".$row_style[$c]."'>".$row['device_setting_enabled']."&nbsp;</td>\n";
-			echo "	<td valign='top' class='".$row_style[$c]."'>".$row['device_setting_description']."&nbsp;</td>\n";
+			echo "	<td valign='top' class='".$row_style[$c]."'>".$row['device_handset']."&nbsp;</td>\n";
+			echo "	<td valign='top' class='".$row_style[$c]."'>".$row['device_handset_slot']."&nbsp;</td>\n";
+			echo "	<td valign='top' class='".$row_style[$c]."'>".$row['device_sip_account']."&nbsp;</td>\n";
+			echo "	<td valign='top' class='".$row_style[$c]."'>".$row['device_handset_description']."&nbsp;</td>\n";
 			echo "	<td valign='top' align='right'>\n";
 			if (permission_exists('device_setting_edit')) {
-			echo "		<a href='device_setting_edit.php?device_uuid=".$row['device_uuid']."&id=".$row['device_setting_uuid']."' alt='".$text['button-edit']."'>$v_link_label_edit</a>\n";
+			echo "		<a href='device_handset_edit.php?device_uuid=".$row['device_uuid']."&id=".$row['device_handset_uuid']."' alt='".$text['button-edit']."'>$v_link_label_edit</a>\n";
 			}
 			if (permission_exists('device_setting_delete')) {
-			echo "		<a href='device_setting_delete.php?device_uuid=".$row['device_uuid']."&id=".$row['device_setting_uuid']."' alt='".$text['button-delete']."' onclick=\"return confirm('".$text['confirm-delete']."')\">$v_link_label_delete</a>\n";
+			echo "		<a href='device_handset_delete.php?device_uuid=".$row['device_uuid']."&id=".$row['device_handset_uuid']."' alt='".$text['button-delete']."' onclick=\"return confirm('".$text['confirm-delete']."')\">$v_link_label_delete</a>\n";
 			}
 			echo "	</td>\n";
 			echo "</tr>\n";
-			$previous_category = $row['device_setting_category'];
+			$previous_category = $row['device_handset'];
 			if ($c==0) { $c=1; } else { $c=0; }
 		} //end foreach
 		unset($sql, $result, $row_count);
@@ -153,7 +152,7 @@ require_once "resources/paging.php";
 	echo "		<td width='33.3%' align='center' nowrap>$paging_controls</td>\n";
 	echo "		<td width='33.3%' align='right'>\n";
 	if (permission_exists('device_setting_add')) {
-		echo "			<a href='device_setting_edit.php?device_uuid=".$_GET['id']."' alt='".$text['button-add']."'>$v_link_label_add</a>\n";
+		echo "			<a href='device_handset_edit.php?device_uuid=".$_GET['id']."' alt='".$text['button-add']."'>$v_link_label_add</a>\n";
 	}
 	else {
 		echo "			&nbsp;\n";
