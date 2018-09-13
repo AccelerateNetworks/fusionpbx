@@ -54,7 +54,15 @@ if (strlen($_GET["device_uuid"]) > 0) {
 if (strlen($_GET["domain_uuid"]) > 0) {
 	$domain_uuid = check_str($_GET["domain_uuid"]);
 } else {
-	$domain_uuid = do_sql($db, "SELECT domain_uuid from v_devices where device_uuid = :device_uuid", array(":device_uuid" => $domain_uuid));
+	$device_handset_uuid = check_str($_GET["id"]);
+	$sql = "SELECT domain_uuid from v_devices ";
+	$sql .= "where device_uuid = '$device_uuid'";
+	$prep_statement = $db->prepare(check_sql($sql));
+	$prep_statement->execute();
+	$domains = $prep_statement->fetchAll(PDO::FETCH_NAMED);
+	foreach($domains as $row) {
+		$domain_uuid = $row["domain_uuid"];
+	}
 }
 
 //get http post variables and set them to php variables
@@ -118,7 +126,8 @@ if (count($_POST)>0 && strlen($_POST["persistformvar"]) == 0) {
 					$sql .= "device_handset = '$device_handset', ";
 					$sql .= "device_handset_slot = '$device_handset_slot', ";
 					$sql .= "device_sip_account = '$device_sip_account', ";
-					$sql .= "device_handset_description = '$device_handset_description' ";
+					$sql .= "device_handset_description = '$device_handset_description', ";
+					$sql .= "domain_uuid = '$domain_uuid' ";
 					$sql .= "where device_uuid = '$device_uuid' ";
 					$sql .= "and device_handset_uuid = '$device_handset_uuid'";
 					$db->exec(check_sql($sql));
@@ -163,6 +172,7 @@ if (count($_POST)>0 && strlen($_POST["persistformvar"]) == 0) {
 	elseif ($action == "add") {
 		$document['title'] = $text['title-device_setting-add'];
 	}
+	echo "<p>".$domain_uuid."</p>";
 
 //show the content
 	echo "<form method='post' name='frm' action=''>\n";

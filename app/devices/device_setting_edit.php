@@ -51,6 +51,20 @@ if (strlen($_GET["device_uuid"]) > 0) {
 	$device_uuid = check_str($_GET["device_uuid"]);
 }
 
+if (strlen($_GET["domain_uuid"]) > 0) {
+	$domain_uuid = check_str($_GET["domain_uuid"]);
+} else {
+	$device_handset_uuid = check_str($_GET["id"]);
+	$sql = "SELECT domain_uuid from v_devices ";
+	$sql .= "where device_uuid = '$device_uuid'";
+	$prep_statement = $db->prepare(check_sql($sql));
+	$prep_statement->execute();
+	$domains = $prep_statement->fetchAll(PDO::FETCH_NAMED);
+	foreach($domains as $row) {
+		$domain_uuid = $row["domain_uuid"];
+	}
+}
+
 //get http post variables and set them to php variables
 	if (count($_POST)>0) {
 		$device_setting_category = check_str($_POST["device_setting_category"]);
@@ -88,6 +102,7 @@ if (count($_POST)>0 && strlen($_POST["persistformvar"]) == 0) {
 					$sql .= "(";
 					$sql .= "device_uuid, ";
 					$sql .= "device_setting_uuid, ";
+					$sql .= "domain_uuid, ";
 					$sql .= "device_setting_category, ";
 					$sql .= "device_setting_subcategory, ";
 					$sql .= "device_setting_name, ";
@@ -99,6 +114,7 @@ if (count($_POST)>0 && strlen($_POST["persistformvar"]) == 0) {
 					$sql .= "(";
 					$sql .= "'$device_uuid', ";
 					$sql .= "'".uuid()."', ";
+					$sql .= "'$domain_uuid', ";
 					$sql .= "'$device_setting_category', ";
 					$sql .= "'$device_setting_subcategory', ";
 					$sql .= "'$device_setting_name', ";
@@ -118,7 +134,8 @@ if (count($_POST)>0 && strlen($_POST["persistformvar"]) == 0) {
 					$sql .= "device_setting_name = '$device_setting_name', ";
 					$sql .= "device_setting_value = '$device_setting_value', ";
 					$sql .= "device_setting_enabled = '$device_setting_enabled', ";
-					$sql .= "device_setting_description = '$device_setting_description' ";
+					$sql .= "device_setting_description = '$device_setting_description', ";
+					$sql .= "domain_uuid = '$domain_uuid' ";
 					$sql .= "where device_uuid = '$device_uuid' ";
 					$sql .= "and device_setting_uuid = '$device_setting_uuid'";
 					$db->exec(check_sql($sql));
