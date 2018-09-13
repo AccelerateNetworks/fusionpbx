@@ -1362,7 +1362,8 @@
 				echo "<td align='left'>\n";
 				echo "	<input class='formfld' type='text' name='device_handsets[".$x."][device_sip_account]' style='width: 150px;' maxlength='255' value=\"".escape($row['device_sip_account'])."\"/>\n";
 				echo "</td>\n";
-				//Implement these two PHP pages!
+
+				echo "				<td>\n";
 				if (strlen($row['device_handset_uuid']) > 0) {
 					if (permission_exists('device_edit')) {
 						echo "					<a href='device_handset_edit.php?device_uuid=".escape($row['device_uuid'])."&id=".escape($row['device_handset_uuid'])."' alt='".$text['button-edit']."'>$v_link_label_edit</a>\n";

@@ -172,7 +172,6 @@ if (count($_POST)>0 && strlen($_POST["persistformvar"]) == 0) {
 	elseif ($action == "add") {
 		$document['title'] = $text['title-device_setting-add'];
 	}
-	echo "<p>".$domain_uuid."</p>";
 
 //show the content
 	echo "<form method='post' name='frm' action=''>\n";
