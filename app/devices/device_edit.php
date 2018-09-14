@@ -487,6 +487,7 @@
 	$device_handsets[$x]['device_handset'] = '';
 	$device_handsets[$x]['device_handset_slot'] = '';
 	$device_handsets[$x]['device_sip_account'] = '';
+	$device_handsets[$x]['device_handset_description'] = '';
 
 //get device settings
 	$sql = "SELECT * FROM v_device_settings ";
@@ -1330,6 +1331,7 @@
 		echo "				<td class='vtable'>".$text['label-handset']."</td>\n";
 		echo "				<td class='vtable'>".$text['label-handset_slot']."</td>\n";
 		echo "				<td class='vtable'>".$text['label-handset_sip_account']."</td>\n";
+		echo "				<td class='vtable'>".$text['label-device_setting_description']."</td>\n";
 		echo "				<td>&nbsp;</td>\n";
 		echo "			</tr>\n";
 
@@ -1361,6 +1363,10 @@
 
 				echo "<td align='left'>\n";
 				echo "	<input class='formfld' type='text' name='device_handsets[".$x."][device_sip_account]' style='width: 150px;' maxlength='255' value=\"".escape($row['device_sip_account'])."\"/>\n";
+				echo "</td>\n";
+
+				echo "<td align='left'>\n";
+				echo "	<input class='formfld' type='text' name='device_handsets[".$x."][device_handset_description]' style='width: 150px;' maxlength='255' value=\"".escape($row['device_handset_description'])."\"/>\n";
 				echo "</td>\n";
 
 				echo "				<td>\n";
