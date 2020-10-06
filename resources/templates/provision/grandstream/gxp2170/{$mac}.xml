@@ -8446,8 +8446,11 @@
 <P{$start_id+$pid+103}>{$keys.line.$line.device_key_value}</P{$start_id+$pid+103}>
 {else}
 {if $line <= $fixed_keys}
+{if $line <= 4}
 <P{$start_id+$pid}>0</P{$start_id+$pid}>
-<P{$start_id+$pid+1}>{$line-1}</P{$start_id+$pid+1}>
+{else}
+<P{$start_id+$pid}>1</P{$start_id+$pid}>
+{/if}<P{$start_id+$pid+1}>{$line-1}</P{$start_id+$pid+1}>
 <P{$start_id+$pid+102}></P{$start_id+$pid+102}>
 <P{$start_id+$pid+103}></P{$start_id+$pid+103}>
 {else}
