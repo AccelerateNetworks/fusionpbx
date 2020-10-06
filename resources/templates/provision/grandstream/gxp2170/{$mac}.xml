@@ -8449,8 +8449,9 @@
 {if $line <= 4}
 <P{$start_id+$pid}>0</P{$start_id+$pid}>
 {else}
-<P{$start_id+$pid}>1</P{$start_id+$pid}>
-{/if}<P{$start_id+$pid+1}>{$line-1}</P{$start_id+$pid+1}>
+<P{$start_id+$pid}>-1</P{$start_id+$pid}>
+{/if}
+<P{$start_id+$pid+1}>{$line-1}</P{$start_id+$pid+1}>
 <P{$start_id+$pid+102}></P{$start_id+$pid+102}>
 <P{$start_id+$pid+103}></P{$start_id+$pid+103}>
 {else}
