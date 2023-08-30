@@ -1,10 +1,9 @@
 <?php
 
-//check the permission
+//add the document root to the include path
 	if (defined('STDIN')) {
-		//set the include path
-		$conf = glob("{/usr/local/etc,/etc}/fusionpbx/config.conf", GLOB_BRACE);
-		set_include_path(parse_ini_file($conf[0])['document.root']);
+		//includes files
+		require_once dirname(__DIR__, 4) . "/resources/require.php";
 	}
 	else {
 		exit;
@@ -105,7 +104,7 @@
 //create the process id file if the process doesn't exist
 	if (!$pid_exists) {
 		//remove the old pid file
-		if (file_exists($file)) {
+		if (file_exists($pid_file)) {
 			unlink($pid_file);
 		}
 

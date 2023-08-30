@@ -1,17 +1,12 @@
 <?php
 
-//check the permission
-	if (defined('STDIN')) {
-		//set the include path
-		$conf = glob("{/usr/local/etc,/etc}/fusionpbx/config.conf", GLOB_BRACE);
-		set_include_path(parse_ini_file($conf[0])['document.root']);
-	}
-	else {
+//run from command line only
+	if (!defined('STDIN')) {
 		exit;
 	}
 
 //includes files
-	require_once "resources/require.php";
+	require_once  dirname(__DIR__, 4) . "/resources/require.php";
 	require_once "resources/pdo.php";
 	include "resources/classes/permissions.php";
 
@@ -86,12 +81,6 @@
 		exit;
 	}
 
-//fax queue enabled
-	if ($_SESSION['fax_queue']['enabled']['boolean'] != 'true') {
-		echo "FAX Queue is disabled in Default Settings\n";
-		exit;
-	}
-
 //make sure the /var/run/fusionpbx directory exists
 	if (!file_exists('/var/run/fusionpbx')) {
 		$result = mkdir('/var/run/fusionpbx', 0777, true);
@@ -153,7 +142,7 @@
 			$sql .= "where hostname = :hostname ";
 			$sql .= "and ( ";
 			$sql .= "	( ";
-			$sql .= "		(fax_status = 'waiting' or fax_status = 'trying') ";
+			$sql .= "		(fax_status = 'waiting' or fax_status = 'trying' or fax_status = 'busy') ";
 			$sql .= "		and (fax_retry_date is null or floor(extract(epoch from now()) - extract(epoch from fax_retry_date)) > :retry_interval) ";
 			$sql .= "	)  ";
 			$sql .= "	or ( ";

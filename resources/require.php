@@ -17,33 +17,78 @@
 
 	The Initial Developer of the Original Code is
 	Mark J Crane <markjcrane@fusionpbx.com>
-	Portions created by the Initial Developer are Copyright (C) 2008-2022
+	Portions created by the Initial Developer are Copyright (C) 2008-2023
 	the Initial Developer. All Rights Reserved.
 
 	Contributor(s):
 	Mark J Crane <markjcrane@fusionpbx.com>
 */
 
-//add the document root to the include path
-	$config_glob = glob("{/usr/local/etc,/etc}/fusionpbx/config.conf", GLOB_BRACE);
-	$conf = parse_ini_file($config_glob[0]);
+//find the config.conf file
+	if (file_exists('/usr/local/etc/fusionpbx/config.conf')) {
+		$config_file = '/usr/local/etc/fusionpbx/config.conf';
+	}
+	elseif (file_exists('/etc/fusionpbx/config.conf')) {
+		$config_file = '/etc/fusionpbx/config.conf';
+	}
+	elseif (file_exists(__DIR__ . '/config.php')) {
+		//set a custom config_file variable after the config.php has been validated
+		$file_content = trim(file_get_contents(__DIR__ . '/config.php'));
+		$pattern = '/^<\?php\s+\$config_file\s+=\s+[\'"](.+?)[\'"];\s+\?>$/';
+		if (preg_match($pattern, $file_content, $matches) && file_exists($matches[1])) {
+			$config_file = $matches[1];
+		}
+	}
+
+//check if the config file exists
+	$config_exists = !empty($config_file) ? true : false;
+
+//config.conf file not found re-direct the request to the install
+	if (!$config_exists) {
+		header("Location: /core/install/install.php");
+		exit;
+	}
+
+//parse the config.conf file
+	$conf = parse_ini_file($config_file);
+
+//set the include path
 	set_include_path($conf['document.root']);
 
 //set the server variables and define project path constant
 	$_SERVER["DOCUMENT_ROOT"] = $conf['document.root'];
+	$_SERVER["PROJECT_ROOT"] = $conf['document.root'];
 	$_SERVER["PROJECT_PATH"]  = $conf['project.path'];
 	if (isset($conf['project.path'])) {
-		$_SERVER["PROJECT_ROOT"] = $conf['document.root'].$conf['project.path'];
+		$_SERVER["PROJECT_ROOT"] = $conf['document.root'].'/'.$conf['project.path'];
+		if (!defined('PROJECT_ROOT')) { define("PROJECT_ROOT", $conf['document.root'].'/'.$conf['project.path']); }
+		if (!defined('PROJECT_PATH')) { define("PROJECT_PATH", $conf['project.path']); }
 	}
 	else {
-		$_SERVER["PROJECT_ROOT"] = $conf['document.root'];
+		if (!defined('PROJECT_ROOT')) { define("PROJECT_ROOT", $conf['document.root']); }
+		if (!defined('PROJECT_PATH')) { define("PROJECT_PATH", ''); }
 	}
-	define("PROJECT_PATH", $conf['project.path']);
 
 //set the error reporting
+	ini_set('display_errors', '1');
 	if (isset($conf['error.reporting'])) {
-		ini_set('display_errors', '1');
-		error_reporting($conf['error.reporting']);
+		$error_reporting_scope = $conf['error.reporting'];
+	}
+	else {
+		$error_reporting_scope = 'user';
+	}
+	switch ($error_reporting_scope) {
+	case 'user':
+		error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING ^ E_DEPRECATED);
+		break;
+	case 'dev':
+		error_reporting(E_ALL ^ E_NOTICE);
+		break;
+	case 'all':
+		error_reporting(E_ALL);
+		break;
+	default:
+		error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING ^ E_DEPRECATED);
 	}
 
 //get the database connection settings
@@ -55,12 +100,12 @@
 	//$db_password = $settings['database']['password'];
 
 //get the database connection settings
-    $db_type = $conf['database.0.type'];
-    $db_host = $conf['database.0.host'];
-    $db_port = $conf['database.0.port'];
-    $db_name = $conf['database.0.name'];
-    $db_username = $conf['database.0.username'];
-    $db_password = $conf['database.0.password'];
+	$db_type = $conf['database.0.type'];
+	$db_host = $conf['database.0.host'];
+	$db_port = $conf['database.0.port'];
+	$db_name = $conf['database.0.name'];
+	$db_username = $conf['database.0.username'];
+	$db_password = $conf['database.0.password'];
 
 //debug info
 	//echo "Include Path: ".get_include_path()."\n";
@@ -77,7 +122,7 @@
 	require_once "resources/php.php";
 	require_once "resources/functions.php";
 	if (is_array($conf) && count($conf) > 0) {
-		require "resources/pdo.php";
+		require_once "resources/pdo.php";
 		require_once "resources/cidr.php";
 		if (file_exists($_SERVER["DOCUMENT_ROOT"] . PROJECT_PATH . "/resources/switch.php")) {
 			require_once "resources/switch.php";

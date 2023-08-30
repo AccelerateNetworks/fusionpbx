@@ -2,19 +2,17 @@
 
 //check the permission
 	if (defined('STDIN')) {
-		//set the include path
-		$conf = glob("{/usr/local/etc,/etc}/fusionpbx/config.conf", GLOB_BRACE);
-		set_include_path(parse_ini_file($conf[0])['document.root']);
+		//includes files
+		require_once dirname(__DIR__, 4) . "/resources/require.php";
 	}
 	else {
 		exit;
 	}
 
 //includes files
-	require_once "resources/require.php";
 	require_once "resources/pdo.php";
 	include "resources/classes/permissions.php";
-	require $document_root."/app/email_queue/resources/functions/transcribe.php";
+	require $_SERVER['DOCUMENT_ROOT']."/app/email_queue/resources/functions/transcribe.php";
 
 //increase limits
 	set_time_limit(0);
@@ -138,7 +136,7 @@
     //process the messages
     if (is_array($email_queue) && @sizeof($email_queue) != 0) {
         foreach($email_queue as $row) {
-            $command = exec('which php')." ".$document_root."/app/email_queue/resources/jobs/email_send.php ";
+            $command = exec('which php')." ".$_SERVER['DOCUMENT_ROOT']."/app/email_queue/resources/jobs/email_send.php ";
             $command .= "'action=send&email_queue_uuid=".$row["email_queue_uuid"]."&hostname=".$hostname."'";
             if (isset($debug)) {
                 //run process inline to see debug info

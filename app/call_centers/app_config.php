@@ -144,6 +144,9 @@
 		$apps[$x]['permissions'][$y]['groups'][] = "admin";
 		$apps[$x]['permissions'][$y]['groups'][] = "superadmin";
 		$y++;
+		$apps[$x]['permissions'][$y]['name'] = "call_center_email_address";
+		//$apps[$x]['permissions'][$y]['groups'][] = "superadmin";
+		$y++;
 
 	//default settings
 		$y = 0;
@@ -178,6 +181,14 @@
 		$apps[$x]['default_settings'][$y]['default_setting_value'] = "user";
 		$apps[$x]['default_settings'][$y]['default_setting_enabled'] = "true";
 		$apps[$x]['default_settings'][$y]['default_setting_description'] = "Options: user (default)";
+		$y++;
+		$apps[$x]['default_settings'][$y]['default_setting_uuid'] = "b8f8a95c-0167-4768-8aab-c386f64bdd06";
+		$apps[$x]['default_settings'][$y]['default_setting_category'] = "call_center";
+		$apps[$x]['default_settings'][$y]['default_setting_subcategory'] = "refresh";
+		$apps[$x]['default_settings'][$y]['default_setting_name'] = "numeric";
+		$apps[$x]['default_settings'][$y]['default_setting_value'] = "1500";
+		$apps[$x]['default_settings'][$y]['default_setting_enabled'] = "true";
+		$apps[$x]['default_settings'][$y]['default_setting_description'] = "Set the refresh rate in seconds (<=120) or milliseconds (>=500).";
 
 	//cache details
 		$apps[$x]['cache']['key'] = "dialplan.\${domain_name}";
@@ -446,6 +457,11 @@
 		$z++;
 		$apps[$x]['db'][$y]['fields'][$z]['name'] = "queue_cc_exit_keys";
 		$apps[$x]['db'][$y]['fields'][$z]['type'] = "text";
+		$apps[$x]['db'][$y]['fields'][$z]['description']['en-us'] = "";
+		$z++;
+		$apps[$x]['db'][$y]['fields'][$z]['name'] = "queue_email_address";
+		$apps[$x]['db'][$y]['fields'][$z]['type'] = "text";
+		$apps[$x]['db'][$y]['fields'][$z]['search'] = 'true';
 		$apps[$x]['db'][$y]['fields'][$z]['description']['en-us'] = "";
 		$z++;
 		$apps[$x]['db'][$y]['fields'][$z]['name'] = "queue_description";
