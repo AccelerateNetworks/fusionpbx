@@ -21,6 +21,12 @@
     <!-- # Mandatory -->
     <P271>1</P271>
 
+    <!-- Noise Shield Off -->
+    <P8538>0</P8538>
+
+    <!-- #Enable/Disable Weak Ciphers -->
+    {if isset ($grandstream_disable_weak_ciphers)}<P8373>1</P8373>{/if}
+
     <!-- # Account Name -->
     <!-- # String -->
     <P270>{$account.1.display_name}</P270>
@@ -627,7 +633,7 @@
     <!-- # Jitter Buffer Type. 0 - Fixed, 1 - Adaptive. Default is 1 -->
     <!-- # Number: 0, 1 -->
     <!-- # Mandatory -->
-    <P133>1</P133>
+    {if isset($grandstream_jitter_buffer_type) }<P133>0</P133>{else}<P133>1</P133>{/if}
 
     <!-- # Jitter Buffer Length. 0 - 100ms, 1 - 200ms, 2 - 300ms, 3 - 400ms, 4 - 500ms, 5 - 600ms, 6 - 700ms, 7 - 800ms -->
     <!-- # Default is 2 -->
@@ -7708,7 +7714,7 @@
     <!-- # P1364 = 0 -->
 
     <!-- Set $fixed_keys variable below and the rest should work -->
- 
+
 
 {$fixed_keys=10}
 
@@ -7765,6 +7771,11 @@
 {/if}
 
 {/for}
+
+<P1363>31</P1363>
+<P1364>0</P1364>
+<P1465></P1465>
+<P1466></P1466>
 
     <!-- ############################################################################## -->
     <!-- ##  Settings/Programmable Keys / Softkeys Settings -->

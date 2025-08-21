@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <AddressBook>
-<version>1</version>
+
 	<pbgroup>
 		<id>1</id>
 		<name>Users</name>
@@ -23,9 +23,20 @@
 		{if $row.category == "users"}
 		<Contact>
 			<id>{$start_id++}</id>
-			{if $row.contact_name_given != ""}<FirstName>{$row.contact_name_given}</FirstName>{/if}
-			{if $row.contact_name_family != ""}<LastName>{$row.contact_name_family}</LastName>{/if}
-			{if $row.contact_organization != ""}<Company>{$row.contact_organization}</Company>{/if}
+			{if $row.contact_name_given != ""}
+			{if $row.contact_organization != ""}
+				<FirstName>{$row.contact_name_given} {$row.contact_name_family}</FirstName>
+				<FirstName>{$row.contact_name_given} {$row.contact_name_family}</FirstName>
+				<Company>{$row.contact_organization}</Company>
+			{else}
+				<FirstName>{$row.contact_name_given}</FirstName>
+				<LastName>{$row.contact_name_family}</LastName>
+			{/if}
+			{else}
+				<FirstName>{$row.effective_caller_id_name}</FirstName>
+			{/if}
+			<JobTitle></JobTitle>
+			<Frequent>0</Frequent>
 			{foreach $row.numbers as $number}
 			{if $number.phone_number != ""}
 				{if $number.phone_label == "work"}
@@ -33,18 +44,15 @@
 					<phonenumber>{$number.phone_number}</phonenumber>
 					<accountindex>0</accountindex>
 				</Phone>
-				{elseif $number.phone_label == "home"}
+				{/if}
+				{if $number.phone_label == "home"}
 				<Phone type="Home">
 					<phonenumber>{$number.phone_number}</phonenumber>
 					<accountindex>0</accountindex>
 				</Phone>
-				{elseif $number.phone_label == "mobile"}
+				{/if}
+				{if $number.phone_label == "mobile"}
 				<Phone type="Cell">
-					<phonenumber>{$number.phone_number}</phonenumber>
-					<accountindex>0</accountindex>
-				</Phone>
-				{else}
-				<Phone type="Home">
 					<phonenumber>{$number.phone_number}</phonenumber>
 					<accountindex>0</accountindex>
 				</Phone>
@@ -53,13 +61,28 @@
 			{/foreach}
 			<Group>1</Group>
 			<Primary>0</Primary>
+			<Department></Department>
+			<Job></Job>
+			<Company></Company>
 		</Contact>
 		{elseif $row.category == "groups"}
 		<Contact>
 			<id>{$start_id++}</id>
-			{if $row.contact_name_given != ""}<FirstName>{$row.contact_name_given}</FirstName>{/if}
-			{if $row.contact_name_family != ""}<LastName>{$row.contact_name_family}</LastName>{/if}
-			{if $row.contact_organization != ""}<Company>{$row.contact_organization}</Company>{/if}
+			{if $row.contact_name_given != ""}
+			{if $row.contact_organization != ""}
+				<FirstName>{$row.contact_name_given} {$row.contact_name_family}</FirstName>
+				<FirstName>{$row.contact_name_given} {$row.contact_name_family}</FirstName>
+				<Company>{$row.contact_organization}</Company>
+			{else}
+				<FirstName>{$row.contact_name_given}</FirstName>
+				<LastName>{$row.contact_name_family}</LastName>
+			{/if}
+			{else}
+				<FirstName>{$row.effective_caller_id_name}</FirstName>
+			{/if}
+			<JobTitle></JobTitle>
+
+			<Frequent>0</Frequent>
 			{foreach $row.numbers as $number}
 			{if $number.phone_number != ""}
 				{if $number.phone_label == "work"}
@@ -67,18 +90,15 @@
 					<phonenumber>{$number.phone_number}</phonenumber>
 					<accountindex>0</accountindex>
 				</Phone>
-				{elseif $number.phone_label == "home"}
+				{/if}
+				{if $number.phone_label == "home"}
 				<Phone type="Home">
 					<phonenumber>{$number.phone_number}</phonenumber>
 					<accountindex>0</accountindex>
 				</Phone>
-				{elseif $number.phone_label == "mobile"}
+				{/if}
+				{if $number.phone_label == "mobile"}
 				<Phone type="Cell">
-					<phonenumber>{$number.phone_number}</phonenumber>
-					<accountindex>0</accountindex>
-				</Phone>
-				{else}
-				<Phone type="Home">
 					<phonenumber>{$number.phone_number}</phonenumber>
 					<accountindex>0</accountindex>
 				</Phone>
@@ -87,20 +107,33 @@
 			{/foreach}
 			<Group>2</Group>
 			<Primary>0</Primary>
+			<Department></Department>
+			<Job></Job>
+			<Company></Company>
 		</Contact>
-{elseif $row.category == "extensions"}
+		{elseif $row.category == "extensions"}
 		<Contact>
 			<id>{$start_id++}</id>
-			{if $row.contact_name_given != ""}<FirstName>{$row.contact_name_given}</FirstName>{/if}
-			{if $row.contact_name_family != ""}<LastName>{$row.contact_name_family}</LastName>{/if}
-			{if $row.contact_name_given == "" and $row.contact_name_family == ""}<FirstName>{$row.phone_number}{$row.phone_extension}</FirstName>{/if}
-			{if $row.contact_organization != ""}<Company>{$row.contact_organization}</Company>{/if}
+			{if $row.contact_name_given != ""}
+			{if $row.contact_organization != ""}
+				<FirstName>{$row.contact_name_given} {$row.contact_name_family}</FirstName>
+				<FirstName>{$row.contact_name_given} {$row.contact_name_family}</FirstName>
+				<Company>{$row.contact_organization}</Company>
+			{else}
+				<FirstName>{$row.contact_name_given}</FirstName>
+				<LastName>{$row.contact_name_family}</LastName>
+			{/if}
+			{else}
+				<FirstName>{$row.effective_caller_id_name}</FirstName>
+			{/if}
+			<JobTitle></JobTitle>
+			<Frequent>0</Frequent>
 			{if $row.phone_number != ""}
 				<Phone type="Work">
 					<phonenumber>{$row.phone_number}</phonenumber>
 					<accountindex>0</accountindex>
 				</Phone>
-			{elseif $row.phone_extension != ""}
+			{else}
 				<Phone type="Work">
 					<phonenumber>{$row.phone_extension}</phonenumber>
 					<accountindex>0</accountindex>
@@ -108,6 +141,9 @@
 			{/if}
 			<Group>3</Group>
 			<Primary>0</Primary>
+			<Department></Department>
+			<Job></Job>
+			<Company></Company>
 		</Contact>
 		{/if}
 	{/foreach}

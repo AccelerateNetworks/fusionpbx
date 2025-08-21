@@ -87,14 +87,14 @@
     <!-- # Firmware Upgrade and Privisioning. 0 - TFTP Upgrade, 1 - HTTP Upgrade, 2 - HTTPS Upgrade, 3 - FTP Upgrade, 4 - FTPS Upgrade. -->
     <!-- # Number: 0, 1, 2, 3, 4 -->
     <!-- # Mandatory -->
-    <P212>1</P212>
+    <P212>2</P212>
 
     <!-- Firmware Server Path -->
     <!-- Server address -->
     {if isset($grandstream_firmware_path) && isset($firmware_version)}
     <P192>{$grandstream_firmware_path}/ht802/{$firmware_version}</P192>
     {elseif isset($grandstream_firmware_path)}
-    <P192>{$grandstream_firmware_path}</P192>
+    <P192>{$grandstream_firmware_path}/ht802</P192>
     {else}
     <P192>{$domain_name}{$project_path}/app/provision</P192>
     {/if}
@@ -836,30 +836,17 @@
     <!-- # Priority 1 -->
     <!-- # Number: 100, 101, 102 -->
     <!-- # Mandatory -->
-    {if isset($grandstream_dtmf_method_1) }
-    <P850>{$grandstream_dtmf_method_1}</P850>
-    {else}
     <P850>101</P850>
-    {/if}
-
 
     <!-- # Priority 2 -->
     <!-- # Number: 100, 101, 102 -->
     <!-- # Mandatory -->
-    {if isset($grandstream_dtmf_method_2) }
-    <P851>{$grandstream_dtmf_method_1}</P851>
-    {else}
     <P851>102</P851>
-    {/if}
 
     <!-- # Priority 3 -->
     <!-- # Number: 100, 101, 102 -->
     <!-- # Mandatory -->
-    {if isset($grandstream_dtmf_method_3) }
-    <P852>{$grandstream_dtmf_method_1}</P852>
-    {else}
     <P852>100</P852>
-    {/if}
 
     <!-- # Inband DTMF Duration. duration and inter-duration -->
     <!-- # Number: 40 - 200 milliseconds -->
@@ -870,7 +857,7 @@
     <!-- # Disable DTMF Negotiation. 0 - No(negotiate with peer), 1 - Yes(use above DTMF order without negotiation)  -->
     <!-- # Number: 0, 1 -->
     <!-- # Mandatory -->
-    <P4825>1</P4825>
+    <P4825>0</P4825>
 
     <!-- # Generate Continuous RFC2833 Events. 0 - No, 1 - Yes(RFC2833 events are generated until key is released)  -->
     <!-- # Number: 0, 1 -->
@@ -895,11 +882,11 @@
     <!-- # Offhook Auto-Dial (User ID/extension to dial automatically when offhook) -->
     <!-- # String: 0-9, #, * -->
     <!-- # Mandatory -->
-    {if isset($grandstream_offhook_auto_dial_1)}<P71>{$grandstream_offhook_auto_dial_1}</P71>{else}<P71>{$grandstream_auto_dial_number}</P71>{/if}
+    <P71></P71>
 
     <!-- # Offhook Auto-Dial Delay (0-60 seconds, default is 0) -->
     <!-- # Number: 0 to 60 -->
-    <P4045>{$grandstream_auto_dial_delay}</P4045>
+    <P4045>0</P4045>
 
     <!-- # Proxy-Require  -->
     <!-- # IP Address -->
@@ -1220,7 +1207,7 @@
     <!-- # Re-INVITE After Fax Tone Detected. 0 - Disabled, 1 - Enabled. -->
     <!-- # Number: 0, 1 -->
     <!-- # Mandatory -->
-    <P4416>0</P4416>
+    <P4416>1</P4416>
 
     <!-- # Jitter buffer type.  0 - Fixed, 1 - Adaptive -->
     <!-- # Number: 0, 1 -->
@@ -1381,26 +1368,12 @@
     <!-- # Disable Line Echo Canceller (LEC).  0 - No, 1 - Yes -->
     <!-- # Number: 0, 1 -->
     <!-- # Mandatory -->
-    {if isset($line_echo_canceller)} 
-        <P824>{$line_echo_canceller}</P824>
-    {elseif isset($line_1_echo_canceller)} 
-        <P824>{$line_1_echo_canceller}</P824>
-    {else}
-        <P824>0</P824>
-    {/if}
-
-    
+    <P824>0</P824>
 
     <!-- # Disable Network Echo Suppressor.  0 - No, 1 - Yes -->
     <!-- # Number: 0, 1 -->
     <!-- # Mandatory -->
-    {if isset($line_echo_suppressor)} 
-        <P4441>{$line_echo_suppressor}</P4441>
-    {elseif isset($line_1_echo_suppressor)} 
-        <P4441>{$line_1_echo_suppressor}</P4441>
-    {else}
-        <P4441>0</P4441>
-    {/if}
+    <P4441>0</P4441>
 
     <!-- # Outgoing Call Duration Limit.  (0-180 minutes, default is 0 (No Limit)) -->
     <!-- # Number: 0~180 -->
@@ -1761,30 +1734,17 @@
     <!-- # Priority 1 -->
     <!-- # Number: 100, 101, 102 -->
     <!-- # Mandatory -->
-    {if isset($grandstream_dtmf_method_1) }
-    <P860>{$grandstream_dtmf_method_1}</P860>
-    {else}
     <P860>101</P860>
-    {/if}
-
 
     <!-- # Priority 2 -->
     <!-- # Number: 100, 101, 102 -->
     <!-- # Mandatory -->
-    {if isset($grandstream_dtmf_method_2) }
-    <P861>{$grandstream_dtmf_method_1}</P861>
-    {else}
     <P861>102</P861>
-    {/if}
 
     <!-- # Priority 3 -->
     <!-- # Number: 100, 101, 102 -->
     <!-- # Mandatory -->
-    {if isset($grandstream_dtmf_method_3) }
-    <P862>{$grandstream_dtmf_method_1}</P862>
-    {else}
     <P862>100</P862>
-    {/if}
 
     <!-- # Inband DTMF Duration. duration and inter-duration -->
     <!-- # Number: 40 - 200 milliseconds -->
@@ -1819,7 +1779,7 @@
 
     <!-- # Offhook Auto-Dial (User ID/extension to dial automatically when offhook) -->
     <!-- # String: 0-9, *, # -->
-    <P771>{$grandstream_offhook_auto_dial_2}</P771>
+    <P771></P771>
 
     <!-- # Offhook Auto-Dial Delay (0-60 seconds, default is 0) -->
     <!-- # Number: 0 to 60 -->
@@ -2129,7 +2089,7 @@
     <!-- # Re-INVITE After Fax Tone Detected. 0 - Disabled, 1 - Enabled. -->
     <!-- # Number: 0, 1 -->
     <!-- # Mandatory -->
-    <P4417>0</P4417>
+    <P4417>1</P4417>
 
     <!-- # Jitter buffer type.  0 - Fixed, 1 - Adaptive -->
     <!-- # Number: 0, 1 -->
@@ -2281,26 +2241,12 @@
     <!-- # Disable Line Echo Canceller (LEC).  0 - No, 1 - Yes -->
     <!-- # Number: 0, 1 -->
     <!-- # Mandatory -->
-    {if isset($line_echo_canceller)} 
-        <P825>{$line_echo_canceller}</P825>
-    {elseif isset($line_2_echo_canceller)} 
-        <P825>{$line_2_echo_canceller}</P825>
-    {else}
-        <P825>0</P825>
-    {/if}
-
-    
+    <P825>0</P825>
 
     <!-- # Disable Network Echo Suppressor.  0 - No, 1 - Yes -->
     <!-- # Number: 0, 1 -->
     <!-- # Mandatory -->
-    {if isset($line_echo_suppressor)} 
-        <P4442>{$line_echo_suppressor}</P4442>
-    {elseif isset($line_2_echo_suppressor)} 
-        <P4442>{$line_2_echo_suppressor}</P4442>
-    {else}
-        <P4442>0</P4442>
-    {/if}
+    <P4442>0</P4442>
 
     <!-- # Outgoing Call Duration Limit.  (0-180 minutes, default is 0 (No Limit)) -->
     <!-- # Number: 0~180 -->
@@ -2434,7 +2380,7 @@
     <!-- # IP Address. 0 - DHCP, 2 - PPPoE, 1 - Static IP -->
     <!-- # Number: 0, 1, 2 -->
     <!-- # Mandatory -->
-    <!-- <P8>0</P8> -->
+    <P8>0</P8>
 
     <!-- ################################################################################# -->
     <!-- # DHCP -->
@@ -2629,7 +2575,7 @@
     <!-- # Allow DHCP server to set Time Zone. 0 - No, 1 - Yes -->
     <!-- # Number: 0, 1 -->
     <!-- # Mandatory -->
-    {if isset($grandstream_dhcp_time_zone)}<P143>{$grandstream_dhcp_time_zone}</P143>{else}<P143>0</P143>{/if}
+    <P143>1</P143>
 
     <!-- # Language. 0 - English, 4 - Chinese, 6 - Russian, 10 - Spanish IVR -->
     <!-- # Number: 0, 4, 6, 10 -->

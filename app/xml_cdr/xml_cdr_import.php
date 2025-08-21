@@ -26,7 +26,11 @@
 
 //includes files
 	require_once dirname(__DIR__, 2) . "/resources/require.php";
-	require_once "resources/pdo.php";
+
+//start the session
+	if (session_status() === PHP_SESSION_NONE) {
+		session_start();
+	}
 
 //check the domain cidr range 
 	if (isset($_SESSION['cdr']["cidr"]) && !defined('STDIN')) {
@@ -52,5 +56,9 @@
 	$cdr = new xml_cdr;
 	$cdr->post();
 	$cdr->read_files();
+
+//destroy session
+	session_unset();
+	session_destroy();
 
 ?>

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns="http://www.linphone.org/xsds/lpconfig.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.linphone.org/xsds/lpconfig.xsd lpconfig.xsd">
+  <section name="misc">
+    <entry name="transient_provisioning" overwrite="true">1</entry>
+    <entry name="uuid" overwrite="true">317971da-65c4-419f-a0ca-69fe26523e2b</entry>
+  </section>
+  <section name="sip">
+    <entry name="verify_server_certs" overwrite="true">0</entry>
+    <entry name="verify_server_cn" overwrite="true">0</entry>
+    <entry name="media_encryption" overwrite="true">srtp</entry>
+  </section>
+  <section name="ui">
+    <entry name="exit_on_close" overwrite="true">1</entry>
+    <entry name="logs_enabled" overwrite="true">1</entry>
+  </section>
+  <section name="audio_codec_0">
+    <entry name="mime" overwrite="true">opus</entry>
+    <entry name="enabled" overwrite="true">1</entry>
+  </section>
+  <section name="audio_codec_1">
+    <entry name="mime" overwrite="true">G722</entry>
+    <entry name="enabled" overwrite="true">1</entry>
+  </section>
+  <section name="audio_codec_2">
+    <entry name="mime" overwrite="true">speex</entry>
+    <entry name="enabled" overwrite="true">0</entry>
+  </section>
+  <section name="audio_codec_3">
+    <entry name="mime" overwrite="true">speex</entry>
+    <entry name="enabled" overwrite="true">0</entry>
+  </section>
+  <section name="audio_codec_4">
+    <entry name="mime" overwrite="true">PCMU</entry>
+    <entry name="enabled" overwrite="true">1</entry>
+  </section>
+  <section name="audio_codec_5">
+    <entry name="mime" overwrite="true">PCMA</entry>
+    <entry name="enabled" overwrite="true">1</entry>
+  </section>
+  <section name="audio_codec_6">
+    <entry name="mime" overwrite="true">GSM</entry>
+    <entry name="enabled" overwrite="true">0</entry>
+  </section>
+  <section name="audio_codec_7">
+    <entry name="mime" overwrite="true">G729</entry>
+    <entry name="enabled" overwrite="true">0</entry>
+  </section>
+  <section name="audio_codec_8">
+    <entry name="mime" overwrite="true">speex</entry>
+    <entry name="enabled" overwrite="true">0</entry>
+  </section>
+  <section name="audio_codec_9">
+    <entry name="mime" overwrite="true">BV16</entry>
+    <entry name="enabled" overwrite="true">0</entry>
+  </section>
+  <section name="audio_codec_10">
+    <entry name="mime" overwrite="true">L16</entry>
+    <entry name="enabled" overwrite="true">0</entry>
+  </section>
+  <section name="audio_codec_11">
+    <entry name="mime" overwrite="true">L16</entry>
+    <entry name="enabled" overwrite="true">0</entry>
+  </section>
+  <section name="video_codec_0">
+    <entry name="mime" overwrite="true">VP8</entry>
+    <entry name="rate" overwrite="true">90000</entry>
+    <entry name="enabled" overwrite="true">1</entry>
+  </section>
+  <section name="video_codec_1">
+    <entry name="mime" overwrite="true">H264</entry>
+    <entry name="enabled" overwrite="true">1</entry>
+  </section>
+  <section name="proxy_default_values">
+    <entry name="avpf" overwrite="true">0</entry>
+  </section>
+  <section name="auth_info_0">
+    <entry name="username" overwrite="true">{$account.1.user_id}</entry>
+    <entry name="ha1" >{$account.1.password}</entry>
+    <entry name="realm" overwrite="true">{$account.1.server_address}</entry>
+    <entry name="domain" overwrite="true">{$account.1.server_address}</entry>
+    <entry name="algorithm" overwrite="true">MD5</entry>
+  </section>
+  <section name="proxy_0">
+    <entry name="reg_proxy" overwrite="true">&lt;sip:{$account.1.server_address};transport={if $account.1.sip_transport == 'udp'}udp{/if}{if $account.1.sip_transport == 'tcp'}tcp{/if}{if $account.1.sip_transport == 'tls'}tls{/if}&gt;</entry>
+    <entry name="reg_identity" overwrite="true">"{$account.1.display_name}" &lt;sip:{$account.1.user_id}@{$account.1.server_address}&gt;</entry>
+    <entry name="reg_route" overwrite="true">&lt;sip:{$account.1.server_address};transport={if $account.1.sip_transport == 'udp'}udp{/if}{if $account.1.sip_transport == 'tcp'}tcp{/if}{if $account.1.sip_transport == 'tls'}tls{/if}&gt;</entry>
+    <entry name="realm" overwrite="true">{$account.1.server_address}</entry>
+    <entry name="reg_expires" overwrite="true">3600</entry>
+    <entry name="reg_sendregister" overwrite="true">{if $account.1.enabled == 'true'}1{else}0{/if}</entry>
+    <entry name="publish" overwrite="true">1</entry>
+    <entry name="dial_escape_plus" overwrite="true">0</entry>
+  </section>
+    <section name="auth_info_1">
+    <entry name="username" overwrite="true">{$account.2.user_id}</entry>
+    <entry name="ha1" overwrite="true">{$account.2.password}</entry>
+    <entry name="domain" overwrite="true">{$account.2.server_address}</entry>
+    <entry name="realm" overwrite="true">{$account.2.server_address}</entry>
+    <entry name="algorithm" overwrite="true">MD5</entry>
+  </section>
+  <section name="proxy_1">
+    <entry name="reg_proxy" overwrite="true">&lt;sip:{$account.2.server_address};transport={if $account.2.sip_transport == 'udp'}udp{/if}{if $account.2.sip_transport == 'tcp'}tcp{/if}{if $account.2.sip_transport == 'tls'}tls{/if}&gt;</entry>
+    <entry name="reg_identity" overwrite="true">"{$account.2.display_name}" &lt;sip:{$account.2.user_id}@{$account.2.server_address}&gt;</entry>
+    <entry name="reg_route" overwrite="true">&lt;sip:{$account.2.server_address};transport={if $account.2.sip_transport == 'udp'}udp{/if}{if $account.2.sip_transport == 'tcp'}tcp{/if}{if $account.2.sip_transport == 'tls'}tls{/if}&gt;</entry>
+    <entry name="realm" overwrite="true">{$account.2.server_address}</entry>
+    <entry name="reg_expires" overwrite="true">3600</entry>
+    <entry name="reg_sendregister" overwrite="true">{if $account.2.enabled == 'true'}1{else}0{/if}</entry>
+    <entry name="publish" overwrite="true">1</entry>
+    <entry name="avpf" overwrite="true">0</entry>
+    <entry name="dial_escape_plus" overwrite="true">0</entry>
+  </section>
+</config>

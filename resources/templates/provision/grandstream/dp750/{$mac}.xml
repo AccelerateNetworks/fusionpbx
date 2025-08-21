@@ -12,6 +12,10 @@
 <!-- #  Profile 1  ## -->
 <!-- ################ -->
 
+<!-- Enable Call Waiting in Parallel Mode. 0 - no, 1 - yes -->
+<!-- Enables call waiting for accounts using this profile which are set to Parallel ring mode. -->
+<P27767>1</P27767>
+
 <!-- # Enable DND Feature. 0 - No, 1 - Yes. Default is 1 -->
 <!-- # Number: 0, 1 -->
 <!-- # Mandatory -->
@@ -2110,6 +2114,53 @@
 <!-- String: 0 to 60 -->
 <P4048>0</P4048>
 
+<!-- Match Incoming Caller ID. Specifies matching rules with number, pattern or Alert Info text to ring the selected ring tone.  -->
+<!-- Please refer to user manual for more details.  -->
+<!-- Number, pattern or Alert Info for matching Rule 1 -->
+{if isset($grandstream_auto_answer_numbers) }<P1506>{$grandstream_auto_answer_numbers}</P1506>{/if}
+
+<!-- Ringtone for incoming caller id that matches Rule 1.  -->
+<!-- 0 - System Ring Tone -->
+<!-- 1 - Handset RingTone 1 -->
+<!-- 2 - Handset RingTone 2 -->
+<!-- 3 - Handset RingTone 3 -->
+<!-- 4 - Handset RingTone 4 -->
+<!-- 5 - Handset RingTone 5 -->
+<!-- 6 - Handset RingTone 6 -->
+<!-- 7 - Handset RingTone 7 -->
+<!-- 8 - Handset RingTone 8 -->
+<!-- 9 - Custom Ring Tone 1 -->
+<!-- 10 - Bellcore Ring Tone 1 -->
+<!-- 11 - Bellcore Ring Tone 2 -->
+<!-- 12 - Bellcore Ring Tone 3 -->
+<!-- 13 - Bellcore Ring Tone 4 -->
+<!-- 14 - Bellcore Ring Tone 5 -->
+{if isset($grandstream_auto_answer_ringtone) }<P1507>{$grandstream_auto_answer_ringtone}</P1507>{else}<P1507>0</P1507>{/if}
+
+<!-- Number, pattern or Alert Info for matching Rule 2 -->
+{if isset($grandstream_auto_answer_numbers_2) }<P1508>{$grandstream_auto_answer_numbers_2}</P1508>{/if}
+
+<!-- Ringtone for incoming caller id that matches Rule 2.  -->
+{if isset($grandstream_auto_answer_ringtone) }<P1509>{$grandstream_auto_answer_ringtone}</P1509>{else}<P1509>0</P1509>{/if}
+
+<!-- Number, pattern or Alert Info for matching Rule 3 -->
+{if isset($grandstream_auto_answer_numbers_3) }<P1510>{$grandstream_auto_answer_numbers_3}</P1510>{/if}
+
+<!-- Ringtone for incoming caller id that matches Rule 3.  -->
+{if isset($grandstream_auto_answer_ringtone) }<P1511>{$grandstream_auto_answer_ringtone}</P1511>{else}<P1511>0</P1511>{/if}
+
+<!-- Enable Auto Answer. Enable Auto Answer. 0 - No, 1 - Yes, default is 0 - No -->
+<!-- Number: 0,1 -->
+<!-- Mandatory -->
+<!-- Below 5 P values are used for handset 1 to handset 5. -->
+{if isset($grandstream_auto_answer) }
+<P30100>{$grandstream_auto_answer}
+<P30101>{$grandstream_auto_answer}
+<P30102>{$grandstream_auto_answer}
+<P30103>{$grandstream_auto_answer}
+<P30104>{$grandstream_auto_answer}
+{/if}
+
 <!-- Enable Call Features. 0 - No, 1 - Yes, 2 - Enable All -->
 <P620>1</P620>
 
@@ -3075,7 +3126,11 @@
 <!-- Enable TR-069. 0 - No, 1 - Yes. Default is 0. -->
 <!-- Number: 0, 1 -->
 <!-- Mandatory -->
+{if isset ($grandstream_tr069_enable)}
+<P1409>{$grandstream_tr069_enable}</P1409>
+{else}
 <P1409>0</P1409>
+{/if}
 
 <!-- ACS URL. URL of the TR-069 Auto Configuration Servers (e.g., http://acs.mycompany.com, or IP address). -->
 <!-- String -->
@@ -3092,7 +3147,11 @@
 <!-- Periodic Inform Enable. 0 - No, 1 - Yes. Default is 0 -->
 <!-- Number: 0, 1 -->
 <!-- Mandatory -->
+{if isset ($grandstream_tr069_periodic_inform_enable)}
+<P4506>{$grandstream_tr069_periodic_inform_enable}</P4506>
+{else}
 <P4506>0</P4506>
+{/if}
 
 <!-- Periodic Inform Interval. Default is 300. -->
 <!-- Number -->

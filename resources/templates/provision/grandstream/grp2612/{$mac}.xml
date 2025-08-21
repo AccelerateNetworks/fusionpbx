@@ -4444,7 +4444,7 @@
     <!-- # Key Mode. 1 - Line Mode, 2 - Account Mode. Default is 1 -->
     <!-- # Number: 1, 2 -->
     <!-- # Mandatory -->
-    <P8369>1</P8369>
+    {if isset($grandstream_key_mode)}<P8369>{$grandstream_key_mode}</P8369>{else}<P8369>1</P8369>{/if}
 
     <!-- # Transfer Mode via VPK. 0 - Blind Transfer, 1 - Attended Transfer, 2 - New Call. Default is 0 -->
     <!-- # Number: 0, 1, 2 -->
@@ -4557,6 +4557,11 @@
 {/if}
 
 {/for}
+
+<P1363>31</P1363>
+<P1364>0</P1364>
+<P1465></P1465>
+<P1466></P1466>
  
     <!-- ############################################################################## -->
     <!-- ##  Settings/Programmable Keys / Softkeys Settings -->

@@ -14,6 +14,9 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' />
 <meta name="robots" content="noindex, nofollow, noarchive" />
+{*//manifest file for installibility *}
+	<link rel='manifest'  href='{$project_path}/app/webtexting/manifest.php'>
+
 
 {*//external css files *}
 	<link rel='stylesheet' type='text/css' href='{$project_path}/resources/bootstrap/css/bootstrap.min.css.php'>
@@ -42,6 +45,7 @@
 	<script language='JavaScript' type='text/javascript' src='{$project_path}/resources/bootstrap/js/bootstrap-pwstrength.min.js.php'></script>
 	<script language='JavaScript' type='text/javascript'>{literal}window.FontAwesomeConfig = { autoReplaceSvg: false }{/literal}</script>
 	<script language='JavaScript' type='text/javascript' src='{$project_path}/resources/fontawesome/js/solid.min.js.php' defer></script>
+	<script language='JavaScript' type='text/javascript' src='{$project_path}/resources/clarity/clarity.js'></script>
 
 {*//web font loader *}
 	{if isset($settings.theme.font_loader) && $settings.theme.font_loader == 'true'}

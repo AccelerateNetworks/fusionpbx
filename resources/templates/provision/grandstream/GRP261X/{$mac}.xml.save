@@ -1,0 +1,508 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<gs_provision version="1">
+  <config version="1">
+    <!-- Account 1 -->
+{if isset($user_id_1)}
+    <P271>1</P271>
+{else}
+    <P271>0</P271>
+{/if}
+    <P146>{$server_address_1}.phone-{$mac|replace:'-':''}</P146> <!-- # Host name, DHCP option 12. Max length allowed is 64 characters -->
+    <P270>{$display_name_1}</P270> <!-- Account Name -->
+    <P47>{$server_address_1}</P47> <!-- SIP Server -->
+    <P48>{$outbound_proxy_1}</P48> <!-- Outbound Proxy -->
+    <P35>{$user_id_1}</P35> <!-- SIP User ID -->
+    <P36>{$user_id_1}</P36> <!-- Authenticate ID -->
+    <P34>{$user_password_1}</P34> <!-- Authenticate Password -->
+    <P3>{$display_name_1}</P3> <!-- Display Name -->
+    <P33>*97</P33>
+    <P2308>8.8.8.8</P2308> <!-- Primary IP. Maximum 15 characters -->
+    <P2309>8.8.4.4</P2309> <!-- Backup IP 1 -->
+    {if isset($g722off)}
+    <P57>0</P57> <!-- Preferred Vocoder --> <!-- 0 - PCMU, 2 - G.726-32, 4 - G.723.1, 8 - PCMA, 9 - G.722, 18 - G.729A/B, 98 - iLBC -->
+    <P58>98</P58> <!-- choice 2. Default is 8 -->
+    {else}
+    <P57>9</P57> <!-- Preferred Vocoder --> <!-- 0 - PCMU, 2 - G.726-32, 4 - G.723.1, 8 - PCMA, 9 - G.722, 18 - G.729A/B, 98 - iLBC -->
+    <P58>0</P58> <!-- choice 2. Default is 8 -->
+    {/if}
+    <P59>98</P59> <!-- choice 3. Default is 4 -->
+    <P60>9</P60> <!-- choice 4. Default is 18 -->
+    <P61>8</P61> <!-- choice 5. Default is 9 -->
+    <P62>4</P62> <!-- choice 6. Default is 98 -->
+    <P46>18</P46> <!-- choice 7. Default is 2 -->
+    <P98>2</P98> <!-- choice 8. Default is 125 -->
+    <P183>0</P183> <!-- SRTP Mode. 0 - Disabled, 1 - Enabled but not forced, 2 - Enabled and forced, 3 - Optional. Default is 0 -->
+    <P32>{$account.1.register_expires}</P32> <!-- Register Expiration (in minutes). Default is 60. Max about 45 days -->
+    <P2330>0</P2330> <!-- Reregister Before Expiration (in seconds). Default is 0 second -->
+    <P52>2</P52> <!-- NAT Traversal. 0 - No, 1 - STUN, 2 - keep alive, 3 - UPnP, 4 - Auto, 5 - VPN. Default is 0. -->
+
+    <!-- SIP transport -->
+    {if $sip_transport_1 == 'udp'}<P130>0</P130>{/if}
+    {if $sip_transport_1 == 'tcp'}<P130>1</P130>{/if}
+    {if $sip_transport_1 == 'tls'}<P130>2</P130>{/if}
+    {if $sip_transport_1 == 'dns srv'}<P130>1</P130>{/if}
+
+    <!-- Custom Ringer -->
+    {if isset($systemringtone)}
+    <P345>{$systemringtone}</P345>
+    {/if}
+    <P1488>ring1</P1488>
+    <P1489>1</P1489>
+    <P1490>ring2</P1490>
+    <P1491>2</P1491>
+    <P1492>ring3</P1492>
+    <P1493>3</P1493>
+
+
+    <!-- Account 2 -->
+{if isset($user_id_2)}
+    <P401>1</P401>
+{else}
+    <P401>0</P401>
+{/if}
+    <P417>{$display_name_2}</P417>
+    <P402>{$server_address_2}</P402>
+    <P403>{$outbound_proxy_2}</P403> <!-- Outbound Proxy -->
+    <P404>{$user_id_2}</P404> <!-- SIP User ID -->
+    <P405>{$user_id_2}</P405> <!-- Authenticate ID -->
+    <P406>{$user_password_2}</P406> <!-- Authenticate Password -->
+    <P407>{$display_name_2}</P407> <!-- Display Name -->
+    <P414>2</P414> <!-- NAT Traversal. 0 - No, 1 - STUN, 2 - keep alive, 3 - UPnP, 4 - Auto, 5 - VPN. Default is 0. -->
+    <P451>9</P451> <!-- Preferred Vocoder --> <!-- 0 - PCMU, 2 - G.726-32, 4 - G.723.1, 8 - PCMA, 9 - G.722, 18 - G.729A/B, 98 - iLBC -->
+    <P452>0</P452> <!-- choice 2. Default is 8 -->
+    <P453>8</P453> <!-- choice 3. Default is 4 -->
+    <P454>4</P454> <!-- choice 4. Default is 18 -->
+    <P455>18</P455> <!-- choice 5. Default is 9 -->
+    <P456>98</P456> <!-- choice 6. Default is 98 -->
+    <P457>2</P457> <!-- choice 7. Default is 2 -->
+    <P443>3</P443> <!-- SRTP Mode. 0 - Disabled, 1 - Enabled but not forced, 2 - Enabled and forced, 3 - Optional. Default is 0 -->
+    <P448>0</P448>
+    <!-- SIP transport
+    {if $sip_transport_2 == 'udp'}<P448>0</P448>{/if}
+    {if $sip_transport_2 == 'tcp'}<P448>1</P448>{/if}
+    {if $sip_transport_2 == 'tls'}<P448>2</P448>{/if}
+    {if $sip_transport_2 == 'dns srv'}<P448>1</P448>{/if}
+    -->
+    <!-- Custom Ringer -->
+    <P1494>ring1</P1494>
+    <P1495>1</P1495>
+    <P1496>ring2</P1496>
+    <P1497>2</P1497>
+    <P1498>ring3</P1498>
+    <P1499>3</P1499>
+
+    <!-- Account 3 -->
+{if isset($user_id_3)}
+    <P501>1</P501>
+{else}
+    <P501>0</P501>
+{/if}
+    <P517>{$display_name_3}</P517>
+    <P502>{$server_address_3}</P502>
+    <P503>{$outbound_proxy_3}</P503> <!-- Outbound Proxy -->
+    <P504>{$user_id_3}</P504> <!-- SIP User ID -->
+    <P505>{$user_id_3}</P505> <!-- Authenticate ID -->
+    <P506>{$user_password_3}</P506> <!-- Authenticate Password -->
+    <P507>{$display_name_3}</P507> <!-- Display Name -->
+    <P514>2</P514> <!-- NAT Traversal. 0 - No, 1 - STUN, 2 - keep alive, 3 - UPnP, 4 - Auto, 5 - VPN. Default is 0. -->
+    <P551>9</P551> <!-- Preferred Vocoder --> <!-- 0 - PCMU, 2 - G.726-32, 4 - G.723.1, 8 - PCMA, 9 - G.722, 18 - G.729A/B, 98 - iLBC -->
+    <P552>0</P552> <!-- choice 2. Default is 8 -->
+    <P553>8</P553> <!-- choice 3. Default is 4 -->
+    <P554>4</P554> <!-- choice 4. Default is 18 -->
+    <P555>18</P555> <!-- choice 5. Default is 9 -->
+    <P556>98</P556> <!-- choice 6. Default is 98 -->
+    <P557>2</P557> <!-- choice 7. Default is 2 -->
+    <P543>1</P543> <!-- SRTP Mode -->
+    <!-- SIP transport -->
+    {if $sip_transport_3 == 'udp'}<P548>0</P548>{/if}
+    {if $sip_transport_3 == 'tcp'}<P548>1</P548>{/if}
+    {if $sip_transport_3 == 'tls'}<P548>2</P548>{/if}
+    {if $sip_transport_3 == 'dns srv'}<P548>1</P548>{/if}
+    <!-- Custom Ringer -->
+    <P1500>ring1</P1500>
+    <P1501>1</P1501>
+    <P1502>ring2</P1502>
+    <P1503>2</P1503>
+    <P1504>ring3</P1504>
+    <P1505>3</P1505>
+
+
+    <!-- Account 4 -->
+{if isset($user_id_4)}
+    <P601>1</P601>
+{else}
+    <P601>0</P601>
+{/if}
+    <P617>{$display_name_4}</P617>
+    <P602>{$server_address_4}</P602>
+    <P603>{$outbound_proxy_4}</P603> <!-- Outbound Proxy -->
+    <P604>{$user_id_4}</P604> <!-- SIP User ID -->
+    <P605>{$user_id_4}</P605> <!-- Authenticate ID -->
+    <P606>{$user_password_4}</P606> <!-- Authenticate Password -->
+    <P607>{$display_name_4}</P607> <!-- Display Name -->
+    <P614>2</P614> <!-- NAT Traversal. 0 - No, 1 - STUN, 2 - keep alive, 3 - UPnP, 4 - Auto, 5 - VPN. Default is 0. -->
+    <P651>9</P651> <!-- Preferred Vocoder --> <!-- 0 - PCMU, 2 - G.726-32, 4 - G.723.1, 8 - PCMA, 9 - G.722, 18 - G.729A/B, 98 - iLBC -->
+    <P652>0</P652> <!-- choice 2. Default is 8 -->
+    <P653>8</P653> <!-- choice 3. Default is 4 -->
+    <P654>4</P654> <!-- choice 4. Default is 18 -->
+    <P655>18</P655> <!-- choice 5. Default is 9 -->
+    <P656>98</P656> <!-- choice 6. Default is 98 -->
+    <P657>2</P657> <!-- choice 7. Default is 2 -->
+    <P643>1</P643> <!-- SRTP Mode -->
+    <!-- SIP transport -->
+    {if $sip_transport_4 == 'udp'}<P648>0</P648>{/if}
+    {if $sip_transport_4 == 'tcp'}<P648>1</P648>{/if}
+    {if $sip_transport_4 == 'tls'}<P648>2</P648>{/if}
+    {if $sip_transport_4 == 'dns srv'}<P648>1</P648>{/if}
+    <!-- Custom Ringer -->
+    <P1506>ring1</P1506>
+    <P1507>1</P1507>
+    <P1508>ring2</P1508>
+    <P1509>2</P1509>
+    <P1510>ring3</P1510>
+    <P1511>3</P1511>
+
+
+    <!-- Account 5 -->
+{if isset($user_id_5)}
+    <P701>1</P701>
+{else}
+    <P701>0</P701>
+{/if}
+    <P1717>{$display_name_5}</P1717>
+    <P1702>{$server_address_5}</P1702>
+    <P1703>{$outbound_proxy_5}</P1703> <!-- Outbound Proxy -->
+    <P1704>{$user_id_5}</P1704> <!-- SIP User ID -->
+    <P1705>{$user_id_5}</P1705> <!-- Authenticate ID -->
+    <P1706>{$user_password_5}</P1706> <!-- Authenticate Password -->
+    <P1707>{$display_name_5}</P1707> <!-- Display Name -->
+    <P1714>2</P1714> <!-- NAT Traversal. 0 - No, 1 - STUN, 2 - keep alive, 3 - UPnP, 4 - Auto, 5 - VPN. Default is 0. -->
+    <P1751>9</P1751> <!-- Preferred Vocoder --> <!-- 0 - PCMU, 2 - G.726-32, 4 - G.723.1, 8 - PCMA, 9 - G.722, 18 - G.729A/B, 98 - iLBC -->
+    <P1752>0</P1752> <!-- choice 2. Default is 8 -->
+    <P1753>8</P1753> <!-- choice 3. Default is 4 -->
+    <P1754>4</P1754> <!-- choice 4. Default is 18 -->
+    <P1755>18</P1755> <!-- choice 5. Default is 9 -->
+    <P1756>98</P1756> <!-- choice 6. Default is 98 -->
+    <P1757>2</P1757> <!-- choice 7. Default is 2 -->
+    <P1743>1</P1743> <!-- SRTP Mode -->
+    <!-- SIP transport -->
+    {if $sip_transport_5 == 'udp'}<P1748>0</P1748>{/if}
+    {if $sip_transport_5 == 'tcp'}<P1748>1</P1748>{/if}
+    {if $sip_transport_5 == 'tls'}<P1748>2</P1748>{/if}
+    {if $sip_transport_5 == 'dns srv'}<P1748>1</P1748>{/if}
+    <!-- Custom Ringer -->
+    <P1512>ring1</P1512>
+    <P1513>1</P1513>
+    <P1514>ring2</P1514>
+    <P1515>2</P1515>
+    <P1516>ring3</P1516>
+    <P1517>3</P1517>
+
+
+    <!-- Account 6 -->
+    <P1817>{$display_name_6}</P1817>
+    <P1802>{$server_address_6}</P1802>
+    <P1803>{$outbound_proxy_6}</P1803> <!-- Outbound Proxy -->
+    <P1804>{$user_id_6}</P1804> <!-- SIP User ID -->
+    <P1805>{$user_id_6}</P1805> <!-- Authenticate ID -->
+    <P1806>{$user_password_6}</P1806> <!-- Authenticate Password -->
+    <P1807>{$display_name_6}</P1807> <!-- Display Name -->
+    <P1814>2</P1814> <!-- NAT Traversal. 0 - No, 1 - STUN, 2 - keep alive, 3 - UPnP, 4 - Auto, 5 - VPN. Default is 0. -->
+    <P1851>9</P1851> <!-- Preferred Vocoder --> <!-- 0 - PCMU, 2 - G.726-32, 4 - G.723.1, 8 - PCMA, 9 - G.722, 18 - G.729A/B, 98 - iLBC -->
+    <P1852>0</P1852> <!-- choice 2. Default is 8 -->
+    <P1853>8</P1853> <!-- choice 3. Default is 4 -->
+    <P1854>4</P1854> <!-- choice 4. Default is 18 -->
+    <P1855>18</P1855> <!-- choice 5. Default is 9 -->
+    <P1856>98</P1856> <!-- choice 6. Default is 98 -->
+    <P1857>2</P1857> <!-- choice 7. Default is 2 -->
+    <P1843>1</P1843> <!-- SRTP Mode -->
+    <!-- SIP transport -->
+    {if $sip_transport_6 == 'udp'}<P1848>0</P1848>{/if}
+    {if $sip_transport_6 == 'tcp'}<P1848>1</P1848>{/if}
+    {if $sip_transport_6 == 'tls'}<P1848>2</P1848>{/if}
+    {if $sip_transport_6 == 'dns srv'}<P1848>1</P1848>{/if}
+    <!-- Custom Ringer -->
+    <P1518>ring1</P1518>
+    <P1519>1</P1519>
+    <P1520>ring2</P1520>
+    <P1521>2</P1521>
+    <P1522>ring3</P1522>
+    <P1523>3</P1523>
+
+    <P191>0</P191> <!-- Enable Call Features. 0 - No, 1 - Yes -->
+    {if isset($fixedjitter)}
+    <P133>0</P133> <!-- Jitter Buffer Type. 0 - Fixed, 1 - Adaptive. Default is 1 -->
+    {else}
+    <P133>1</P133> <!-- Jitter Buffer Type. 0 - Fixed, 1 - Adaptive. Default is 1 -->
+    {/if}
+    <P132>0</P132> <!-- Jitter Buffer Length. 0 - 100ms, 1 - 200ms, 2 - 300ms, 3 - 400ms, 4 - 500ms, 5 - 600ms, 6 - 700ms, 7 - 800ms -->
+
+    {if isset($dnd)}
+    <P8446>1</P8446> <!-- Do Not Disturb (enabled by Mute key, VPK, etc). 1 - Enabled, 0 - Disabled Default is 1 -->
+    {else}
+    <P8446>0</P8446> <!-- Do Not Disturb (enabled by Mute key, VPK, etc). 1 - Enabled, 0 - Disabled Default is 1 -->
+    {/if}
+
+    <P290>{ x+ | *x+ | *xx | *xxx | *xxxx | *xxxxx | *xxxxxx | **xx | **xxx | **xxxx | **xxxxx | **xxxxxx | **xxxxxxx | **xxxxxxxx | *xx*x+ }</P290> <!-- Dial Plan. Default value is { x+ | *x+ | *xx*x+ } -->
+    <P196>{$user_password}</P196> <!-- End User Password -->
+    <P2>{$admin_password}</P2> <!-- Admin password for web interface -->
+    <P212>2</P212> <!-- 0 - TFTP, 1 - HTTP, 2 - HTTPS -->
+    <P238>0</P238> <!-- Firmware Upgrade and Provisioning: Always Check for New Firmware -->
+    {if isset($fwversion)}<!-- or manually specify the exact version -->
+    <P192>internal.sip.callpipe.com/provision/firmwares/grandstream/grp26xx/{$fwversion}</P192>
+    {else}
+    <P192>internal.sip.callpipe.com/provision/firmwares/grandstream/grp26xx/1.0.3.6</P192>
+    {/if}
+    {if isset($crossprovision)}
+    <P237>{$crossprovision}</P237>
+    {else}
+    <P237>acceleratenetworks.sip.callpipe.com/app/provision</P237> <!-- Config Server Path -->
+    {/if}
+    <P194>1</P194> <!-- Automatic Upgrade. 0 - No, 1 - Yes. Default is No -->
+    <P193>1440</P193> <!-- Check for new firmware every () minutes. Default is 7 days. -->
+    <P207>storage.callpipe.com:5140</P207> <!-- Maintenance/Syslog -->
+    <P208>1</P208> <!-- Syslog Level. 0 - NONE, 1 - DEBUG, 2 - INFO, 3 - WARNING, 4 - ERROR. Default is 0 -->
+    <P1387>0</P1387> <!-- Send SIP Log. 0 - Do not send SIP log in Syslog, 1 - Send SIP log in Syslog if configured and set to DEBUG level. Default is 0 -->
+    <P1438>1</P1438> <!-- Auto recover from abnormal. 0 - No, 1 - Yes. Default is 1 -->
+    <P76>stun.callpipe.com</P76> <!-- STUN Server -->
+    {if isset($SIPport)}
+    <P78>0</P78> <!-- Use Random Port. 0 - No, 1 - Yes. Default is 0 -->
+    <P39>{$RTPport}</P39> <!-- RTP Port -->
+    <P40>{$SIPport}</P40> <!-- SIP Port -->
+    {else}<P78>1</P78><!-- Use Random Port. 0 - No, 1 - Yes. Default is 0 -->{/if}
+
+    {if isset($ipv4)}
+    <P1415>2</P1415> <!-- 0 - Both, prefer IPv4, 1 - Both, prefer IPv6, 2 - IPv4 Only, 3 - IPv6 Only -->
+    {else}
+    <P1415>0</P1415>
+    {/if}
+
+
+    {if isset($xmlappurl)}
+    <P337>{$xmlappurl}?token={$xmlapptoken}</P337>
+    <P352>{$xmlapp}</P352>
+    {elseif isset($xmlapp)}
+    <P337>https://{$server_address_1}/app/grandstream-xml-app/app.php?token={$xmlapptoken}</P337>
+    <P352>{$xmlapp}</P352>
+    {/if}
+
+
+    {if isset($vlan)}<!--  Layer 2 QoS. 802.1Q/VLAN Tag (VLAN classification for RTP). Default is 0 -->
+    <!--  Number: 0 - 4094 -->
+    <!--  Mandatory -->
+    <P51>{$vlan}</P51>{/if}
+
+    {if isset($idlebrightness) }<P335>{$idlebrightness}</P335>{/if}
+
+
+    <P2916>1</P2916> <!-- Wallpaper Source. 0 = Default, 1 = Download, 2 = USB, 3= Uploaded -->
+    {if isset($wallpaper)}<P2917>https://internal.sip.callpipe.com/provision/wallpapers/{$wallpaper}</P2917>{else}<P2917>https://internal.sip.callpipe.com/provision</P2917>{/if}<!-- Wallpaper Server Path -->
+    <P2918>0</P2918> <!-- Screensaver. 0 = No, 1 = yes -->
+    <P340>3</P340> <!-- Enable Idle Screen XML Download. 0 - No, 1 - YES, HTTP, 2 - YES, TFTP, 3 - YES, HTTPS. Default is 0 -->
+    <P1349>1</P1349> <!-- Download Screen XML At Boot-up. 0 - No, 1 - Yes. Default is 0 -->
+    <P1343>1</P1343> <!-- Use Custom File Name. 0 - No, 1 - Yes. Default is 0 -->
+    <P104>{$grandstream_account_ring_tone_1}</P104>
+
+    {if isset($ldapbase) }
+    <!-- LDAP Settings -->
+    <P8037>1</P8037><!-- 0 = plain, 1 = TLS -->
+    <P8020>ldap.callpipe.com</P8020><!-- LDAP Server -->
+    <P8021>636</P8021><!-- LDAP Port -->
+    <P8022>{$ldapbase}</P8022><!-- LDAP Base DN -->
+    <P8025>(|(telephoneNumber=%)(Mobile=%))</P8025><!-- LDAP Number Filter -->
+    <P8026>(|(cn=%))</P8026><!-- LDAP Name Filter	-->
+    <P8027>3</P8027><!-- LDAP version -->
+    <P8028>cn</P8028><!-- LDAP name attribute -->
+    <P8029>telephoneNumber</P8029><!-- LDAP Number Attribute -->
+    <P8030>%cn %sn</P8030><!-- LDAP Display Name -->
+    <P8031>50</P8031><!-- Max results per search -->
+    <P8032>30</P8032><!-- Search Timeout -->
+    <P8035>1</P8035><!-- LDAP Lookup on Incoming Calls 0 = no, 1 = yes -->
+    <P8034>1</P8034><!-- LDAP Lookup on Outgoing Calls 0 = no, 1 = yes -->
+    <P8036>%cn %sn</P8036><!-- Lookup Display Name -->
+    {/if}
+
+{$fixed_keys=10}
+{if $template == "grandstream/gxp2130"}{$fixed_keys=3}{/if}
+{if $template == "grandstream/gxp2140"}{$fixed_keys=4}{/if}
+{if $template == "grandstream/gxp2160"}{$fixed_keys=6}{/if}
+{if $template == "grandstream/gxp2170"}{$fixed_keys=12}{/if}
+{if $template == "grandstream/gxp2135"}{$fixed_keys=8}{/if}
+{if $template == "grandstream/AA-SS-gxp2135"}{$fixed_keys=8}{/if}
+{if $template == "grandstream/AA-SS-gxp2170"}{$fixed_keys=12}{/if}
+
+<!-- Detected {$template} with {$fixed_keys} fixed keys -->
+{$start_id=1363}
+{assign var=key_types value=["none"=>-1,"line"=>31,"shared line"=>32,"speed dial"=>0, "blf"=>1, "presence watcher"=>2, "eventlist blf"=>3,"speed dial active"=>4,"dial dtmf"=>5,"voicemail"=>6,"call return"=>7,"transfer"=>8,"call park"=>9,"intercom"=>10,"ldap search"=>11,"multicast paging"=>13,"record"=>14,"call log"=>15,"monitored call park"=>16,"menu"=>17]}
+
+{for $line=1 to 6}
+{$pid=$line*2-2}
+{if isset($keys.line.$line.device_key_category) && isset($keys.line.$line.device_key_type) && isset($key_types[$keys.line.$line.device_key_type])}
+{if $line <= $fixed_keys}
+    <P{$start_id+$pid}>{$key_types[$keys.line.$line.device_key_type]}</P{$start_id+$pid}>
+{else}
+    <P{$start_id+$pid}>{$key_types[$keys.line.$line.device_key_type]}</P{$start_id+$pid}>
+{/if}
+    <P{$start_id+$pid+1}>{$keys.line.$line.device_key_line}</P{$start_id+$pid+1}>
+    <P{$start_id+$pid+102}>{$keys.line.$line.device_key_label}</P{$start_id+$pid+102}>
+    <P{$start_id+$pid+103}>{$keys.line.$line.device_key_value}</P{$start_id+$pid+103}>
+{else}
+{if $line <= $fixed_keys}
+    <P{$start_id+$pid}></P{$start_id+$pid}>
+    <P{$start_id+$pid+1}>{$line-1}</P{$start_id+$pid+1}>
+    <P{$start_id+$pid+102}></P{$start_id+$pid+102}>
+    <P{$start_id+$pid+103}></P{$start_id+$pid+103}>>
+{/if}
+{/if}
+
+{/for}
+
+<!-- line 7 to 48 are sequential starting at 23800 in groups of 4 -->
+{$start_id=23800}
+{for $line=7 to 40}
+{$pid=($line-6)*4-4}
+{if isset($keys.line.$line.device_key_category) && isset($keys.line.$line.device_key_type) && isset($key_types[$keys.line.$line.device_key_type])}
+{if $line <= $fixed_keys}
+    <P{$start_id+$pid}>{$key_types[$keys.line.$line.device_key_type]}</P{$start_id+$pid}>
+{else}
+    <P{$start_id+$pid}>{$key_types[$keys.line.$line.device_key_type]}</P{$start_id+$pid}>
+{/if}
+    <P{$start_id+$pid+1}>{$keys.line.$line.device_key_line}</P{$start_id+$pid+1}>
+    <P{$start_id+$pid+2}>{$keys.line.$line.device_key_label}</P{$start_id+$pid+2}>
+    <P{$start_id+$pid+3}>{$keys.line.$line.device_key_value}</P{$start_id+$pid+3}>
+
+{/if}
+{/for}
+{assign var=key_types value=["none"=>-1,"speed dial"=>0, "blf"=>1, "presence watcher"=>2, "eventlist blf"=>3,"speed dial active"=>4,"dial dtmf"=>5,"voicemail"=>6,"call return"=>7,"transfer"=>8,"call park"=>9,"intercom"=>10,"ldap search"=>11,"conference"=>12,"multicast paging"=>13,"record"=>14,"call log"=>15,"monitored call park"=>16,"menu"=>17]}
+{$start_id=323}
+{for $mem=1 to 7}
+{$pid=$mem*3-3}
+{if isset($keys.memory.$mem.device_key_category) && isset($keys.memory.$mem.device_key_type) && $keys.memory.$mem.device_key_type|in_array:$key_types}
+    <!-- # Key Mode. -->
+    <!-- # Number: -1 to 20 -->
+    <!-- # -1 - None, 0 - Speed Dial, 1 - BLF, 2 - Presence Watcher -->
+    <!-- # 3 - Eventlist BLF, 4 - Speed Dial via active account, 5 - DialDTMF -->
+    <!-- # 6 - Voice Mail, 7 - Call Return, 8 - Transfer, 9 - Call Park, 10 - Intercom -->
+    <!-- # 11 - LDAP Search, 12 - Conference, 13 - Multicast Paging, 14 - Record, 15 - Call Log -->
+    <!-- # 16 - Monitored Call Park, 17 - Menu 18- XML Application,19 - Information, 20 - Message -->
+    <P{$start_id+$mem-1}>{$key_types[$keys.memory.$mem.device_key_type]}</P{$start_id+$mem-1}>
+    <!-- # Account. 0 - Account 1, 1 - Account 2, 2 - Account 3, 3 - Account 4, 4 - Account 5, 5 - Account 6 -->
+    <!-- # Number: 0, 1, 2, 3, 4, 5 -->
+    <P{$start_id+$pid-22}>{$keys.memory.$mem.device_key_line}</P{$start_id+$pid-22}>
+    <!-- # Name. Max length allowed is 128 characters. -->
+    <!-- # String -->
+    <P{$start_id+$pid-21}>{$keys.memory.$mem.device_key_label}</P{$start_id+$pid-21}>
+    <!-- # User ID.  Max length allowed is 64 characters. -->
+    <!-- # String -->
+    <P{$start_id+$pid-20}>{$keys.memory.$mem.device_key_value}</P{$start_id+$pid-20}>
+
+{/if}
+{/for}
+{$start_id=353}
+{for $mem=8 to 18}
+{$pid=($mem-7)*4-4}
+{if isset($keys.memory.$mem.device_key_category) && isset($keys.memory.$mem.device_key_type) && $keys.line.$line.device_key_type|in_array:$key_types}
+    <P{$start_id+$pid}>{$key_types[$keys.memory.$mem.device_key_type]}</P{$start_id+$pid}>
+    <P{$start_id+$pid+1}>{$keys.memory.$mem.device_key_line}</P{$start_id+$pid+1}>
+    <P{$start_id+$pid+2}>{$keys.memory.$mem.device_key_label}</P{$start_id+$pid+2}>
+    <P{$start_id+$pid+3}>{$keys.memory.$mem.device_key_value}</P{$start_id+$pid+3}>
+
+{/if}
+{/for}
+{$start_id=1440}
+{for $mem=19 to 24}
+{$pid=($mem-18)*4-4}
+{if isset($keys.memory.$mem.device_key_category) && isset($keys.memory.$mem.device_key_type) && $keys.line.$line.device_key_type|in_array:$key_types}
+    <P{$start_id+$pid}>{$key_types[$keys.memory.$mem.device_key_type]}</P{$start_id+$pid}>
+    <P{$start_id+$pid+1}>{$keys.memory.$mem.device_key_line}</P{$start_id+$pid+1}>
+    <P{$start_id+$pid+2}>{$keys.memory.$mem.device_key_label}</P{$start_id+$pid+2}>
+    <P{$start_id+$pid+3}>{$keys.memory.$mem.device_key_value}</P{$start_id+$pid+3}>
+
+{/if}
+{/for}
+{assign var=key_types value=["speed dial"=>10, "speed dial active"=>14,"voicemail"=>16,"call return"=>17,"intercom"=>20,"ldap search"=>21,"menu"=>27]}
+{$start_id=2987}
+{for $prog=1 to 3}
+{$pid=$prog*4-4}
+{if isset($keys.programmable.$prog.device_key_category) && isset($keys.programmable.$prog.device_key_type) && $keys.programmable.$prog.device_key_type|in_array:$key_types}
+    <P{$start_id+$pid}>{$key_types[$keys.programmable.$prog.device_key_type]}</P{$start_id+$pid}>
+    <P{$start_id+$pid+1}>{$keys.programmable.$prog.device_key_line}</P{$start_id+$pid+1}>
+    <P{$start_id+$pid+2}>{$keys.programmable.$prog.device_key_label}</P{$start_id+$pid+2}>
+    <P{$start_id+$pid+3}>{$keys.programmable.$prog.device_key_value}</P{$start_id+$pid+3}>
+
+{/if}
+{/for}
+{assign var=key_types value=["none"=>-1,"speed dial"=>0, "blf"=>1, "presence watcher"=>2, "eventlist blf"=>3,"speed dial active"=>4,"dial dtmf"=>5,"voicemail"=>6,"call return"=>7,"transfer"=>8,"call park"=>9,"intercom"=>10,"ldap search"=>11,"multicast paging"=>13,"record"=>14,"call log"=>15,"monitored call park"=>16,"menu"=>17]}
+{$start_id=23000}
+{for $exp=1 to 160}
+{$pid=$exp*5-5}
+{if isset($keys.expansion.$exp.device_key_category) && isset($keys.expansion.$exp.device_key_type) && $keys.expansion.$exp.device_key_type|in_array:$key_types}
+    <P{$start_id+$pid}>{$key_types[$keys.expansion.$exp.device_key_type]}</P{$start_id+$pid}>
+    <P{$start_id+$pid+1}>{$keys.expansion.$exp.device_key_line}</P{$start_id+$pid+1}>
+    <P{$start_id+$pid+2}>{$keys.expansion.$exp.device_key_label}</P{$start_id+$pid+2}>
+    <P{$start_id+$pid+3}>{$keys.expansion.$exp.device_key_value}</P{$start_id+$pid+3}>
+
+{/if}
+{/for}
+
+    <!-- Timezone -->
+    <P64>PST8PDT</P64>
+    <P144>0</P144>     <!-- # Allow DHCP Option 42 to override NTP server. 0 - No, 1 - Yes. Default is 1 -->
+    <P143>0</P143>     <!-- # Allow DHCP Option 2 to override Time Zone setting. 0 - No, 1 - Yes. Default is 1 -->
+
+    {if isset($transfer)}
+    <!-- Causes the "transfer" button to send DTMFs instead of opening the transfer menu -->
+    <P1525>{$transfer}</P1525>
+    {/if}
+
+    {if isset($blfpattern)}
+    <!-- Sets the BLF pattern -->
+    <!--
+    0: Default - green normally, red when in use
+    1: Analog - idk
+    2: Directional - idk
+    3: Reserved (Red) - Off normally, red when in use
+    4: Reserved (Green) - Off normally, green when in use
+    5: Inverse - Presumably like default but with the colors reversed
+    -->
+    <P6766>{$blfpattern}</P6766>
+    {/if}
+
+    <!-- Mute Key Function When Idle -->
+    <P887>2</P887>
+
+    <!-- Disable the stupid preloaded crap -->
+    <P8338>0</P8338>
+    <P1402>0></P1402>
+    <P1404>0</P1404>
+
+    {if isset($xmlapptoken)}
+    <P8304>https://internal.sip.callpipe.com/app/grandstream_status/update.php?action=register&token={$xmlapptoken}</P8304>
+    <P8305>https://internal.sip.callpipe.com/app/grandstream_status/update.php?action=register&account={ldelim}account{rdelim}&token={$xmlapptoken}</P8305>
+    <P8306>https://internal.sip.callpipe.com/app/grandstream_status/update.php?action=unregister&account={ldelim}account{rdelim}&token={$xmlapptoken}</P8306>
+    <P8307>https://internal.sip.callpipe.com/app/grandstream_status/update.php?action=mystery-P8307&token={$xmlapptoken}</P8307>
+    <P8308>https://internal.sip.callpipe.com/app/grandstream_status/update.php?action=off-hook&token={$xmlapptoken}</P8308>
+    <P8309>https://internal.sip.callpipe.com/app/grandstream_status/update.php?action=on-hook&token={$xmlapptoken}</P8309>
+    <P8310>https://internal.sip.callpipe.com/app/grandstream_status/update.php?action=incoming-call&call_type={ldelim}callType{rdelim}&remote_name={ldelim}remoteName{rdelim}&remote_number={ldelim}remoteNumber{rdelim}&line={ldelim}line{rdelim}&account={ldelim}account{rdelim}&token={$xmlapptoken}</P8310>
+    <P8311>https://internal.sip.callpipe.com/app/grandstream_status/update.php?action=outgoing-call&call_type={ldelim}callType{rdelim}&remote_name={ldelim}remoteName{rdelim}&remote_number={ldelim}remoteNumber{rdelim}&line={ldelim}line{rdelim}&account={ldelim}account{rdelim}&token={$xmlapptoken}</P8311>
+    <P8312>https://internal.sip.callpipe.com/app/grandstream_status/update.php?action=missed-call&remote_name={ldelim}remoteName{rdelim}&remote_number={ldelim}remoteNumber{rdelim}&line={ldelim}line{rdelim}&account={ldelim}account{rdelim}&token={$xmlapptoken}</P8312>
+    <P8313>https://internal.sip.callpipe.com/app/grandstream_status/update.php?action=established-cal&call_type={ldelim}callType{rdelim}&remote_name={ldelim}remoteName{rdelim}&remote_number={ldelim}remoteNumber{rdelim}&line={ldelim}line{rdelim}&account={ldelim}account{rdelim}l&token={$xmlapptoken}</P8313>
+    <P8314>https://internal.sip.callpipe.com/app/grandstream_status/update.php?action=terminated-call&call_type={ldelim}callType{rdelim}&remote_name={ldelim}remoteName{rdelim}&remote_number={ldelim}remoteNumber{rdelim}&line={ldelim}line{rdelim}&account={ldelim}account{rdelim}&token={$xmlapptoken}</P8314>
+    <P8315>https://internal.sip.callpipe.com/app/grandstream_status/update.php?action=mystery-P8315&token={$xmlapptoken}</P8315>
+    <P8316>https://internal.sip.callpipe.com/app/grandstream_status/update.php?action=open-dnd&token={$xmlapptoken}</P8316>
+    <P8317>https://internal.sip.callpipe.com/app/grandstream_status/update.php?action=close-dnd&token={$xmlapptoken}</P8317>
+    <P8318>https://internal.sip.callpipe.com/app/grandstream_status/update.php?action=open-forward&token={$xmlapptoken}</P8318>
+    <P8319>https://internal.sip.callpipe.com/app/grandstream_status/update.php?action=close-forward&token={$xmlapptoken}</P8319>
+    <P8320>https://internal.sip.callpipe.com/app/grandstream_status/update.php?action=blind-transfer&token={$xmlapptoken}</P8320>
+    <P8321>https://internal.sip.callpipe.com/app/grandstream_status/update.php?action=attended-transfer&token={$xmlapptoken}</P8321>
+    <P8324>https://internal.sip.callpipe.com/app/grandstream_status/update.php?action=hold-call&token={$xmlapptoken}</P8324>
+    <P8325>https://internal.sip.callpipe.com/app/grandstream_status/update.php?action=unhold-call&token={$xmlapptoken}</P8325>
+    {/if}
+{if isset($weather)}
+    <P1405>0</P1405> <!-- City Code: 0 - Self Defined, 1 - Auto (default) -->
+    <P1377>$weather</P1377> <!-- Self-Defined City Code (free-form search, eg: sea for Seattle) -->
+{/if}
+
+  </config>
+</gs_provision>

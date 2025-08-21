@@ -1863,11 +1863,21 @@
     <!-- Network/Wi-Fi Settings -->
     <!-- All network configuration has been deleted -->
 
+    <!-- Access Point 1-->
+    <!-- SSID -->
+    <!-- String -->
+    {if isset($grandstream_wifi_ssid_1)}<P83100>{$grandstream_wifi_ssid_1}</P83100>{/if}
+
+    <!-- Access Point 1-->
+    <!-- Password -->
+    <!-- String -->
+   {if isset($grandstream_wifi_password_1)}<P83103>{$grandstream_wifi_password_1}</P83103>{/if}
+
     <!-- Maintenance/ Web Access -->
 
     <!-- End User Password -->
     <!-- String: a-z, A-Z, 0-9 -->
-    <!-- P196 = -->
+    <P196>{$user_password}</p196>
 
     <!-- Admin Password for web interface -->
     <!-- String: a-z, A-Z, 0-9 -->

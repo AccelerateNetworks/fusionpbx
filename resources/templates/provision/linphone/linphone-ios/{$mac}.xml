@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<config xmlns="http://www.linphone.org/xsds/lpconfig.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.linphone.org/xsds/lpconfig.xsd lpconfig.xsd">
+  <section name="sip">
+    <entry name="default_proxy" overwrite="true">0</entry>
+  </section>
+  <section name="auth_info_0" overwrite="true">
+    <entry name="username" overwrite="true">{$account.1.user_id}</entry>
+    <entry name="passwd" overwrite="true">{$account.1.password}</entry>
+    <entry name="realm" overwrite="true">{$account.1.server_address}:{$account.1.sip_port}</entry>
+    <entry name="domain" overwrite="true">{$account.1.server_address}</entry>
+  </section>
+  <section name="proxy_0" overwrite="true">
+    <entry name="reg_proxy" overwrite="true">&lt;sip:flexisip.callpipe.com;transport=tls&gt;</entry>
+    <entry name="reg_route" overwrite="true">&lt;sip:flexisip.callpipe.com;transport=tls&gt;</entry>
+    <entry name="reg_identity" overwrite="true">"{$account.1.display_name}" &lt;sips:{$account.1.user_id}@{$account.1.server_address}&gt;</entry>
+    <entry name="realm" overwrite="true">{$account.1.server_address}</entry>
+    <entry name="reg_expires" overwrite="true">{$account.1.register_expires * 60}</entry>
+    <entry name="reg_sendregister" overwrite="true">1</entry>
+    <entry name="push_notification_allowed" overwrite="true">1</entry>
+  </section>
+  <section name="misc" overwrite="true">
+    <entry name="version_check_url_root" overwrite="true">https://acceleratenetworks.sip.callpipe.com/releases</entry>
+  </section>
+</config>

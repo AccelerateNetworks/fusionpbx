@@ -164,7 +164,7 @@
 {if isset($grandstream_firmware_path) && isset($firmware_version)}
 <P192>{$grandstream_firmware_path}/gxw40xx/{$firmware_version}</P192>
 {elseif isset($grandstream_firmware_path)}
-<P192>{$grandstream_firmware_path}/gxw40xx</P192>
+<P192>{$grandstream_firmware_path}</P192>
 {else}
 <P192>{$domain_name}{$project_path}/app/provision</P192>
 {/if}
@@ -205,7 +205,7 @@
 <!-- Automatic Upgrade. 0 - No, 1 - Check daily, 2 - Check weekly, 3 - Check every () minutes. Default is No. -->
 <!-- Number: 0,1,2,3 -->
 <!-- Mandatory -->
-<P194>0</P194>
+<P194>1</P194>
 
 <!-- Automatic Upgrade. Check for new firmware/config file every () minutes, unit is in minute, minimum 60 minutes, default is 7 days. P194=3 -->
 <!-- Number: 60 to 5256000 -->
