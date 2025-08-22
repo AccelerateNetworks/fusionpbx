@@ -7612,7 +7612,7 @@
     <!-- ############################################################################## -->
     <!-- # Server Path -->
     <!-- # String -->
-    <P337>{$grandstreaml_xmlapp_url}</P337>
+    <P337>{$grandstream_xmlapp_url}</P337>
 
     <!-- # Softkey Label -->
     <!-- # String -->
